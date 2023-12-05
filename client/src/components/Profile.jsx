@@ -21,29 +21,44 @@ const Profile = () => {
                 <input type="text" className='rounded-[5px] w-[60%]' placeholder='email@gmailcom'/>
               </div>
             </div>
+            <div className='m-[3%] w-[100%] flex  h-[10%]'>
+              <div className='w-[100%] '>
+                <label htmlFor="Name">Gender : </label>
+                <select id="Gender" name="Gender" className='rounded-[5px] w-[40%]'>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Others">Others</option>
+                  <option value="Prefer Not to Say">Prefer Not to say</option>
+                </select>
+              </div>
+              <div className='w-[100%] '>
+                <label htmlFor="Phone Number">Phone Numbr : </label>
+                <input type="tel" className='rounded-[5px] w-[60%]' placeholder='Enter your Mobile Number'/>
+              </div>
+            </div>
             <div className='flex m-[3%] items-center'>
                 <label htmlFor="org">Name of the Organization : &nbsp;</label>
-                <input type="text" className='rounded-[5px] w-[60%]' placeholder='Indian Institute of Engineering Science and Technology'/>
+                <input type="text" className='rounded-[5px] w-[60%]' placeholder='pvt ltd'/>
             </div>
             <div className='flex m-[3%] items-center'>
               <div className='flex w-[100%] items-center'>
                 <label htmlFor="responsibility">Position of Responsibility : &nbsp;</label>
                 <select id="positions" name="positions" className='rounded-[5px] w-[40%]'>
-                  <option value="Professor">Professor</option>
-                  <option value="HOD">HOD</option>
-                  <option value="Dean">Dean</option>
+                  <option value="Employee">Employee</option>
+                  <option value="Supervisor">Supervisor</option>
+                  <option value="Manager">Manager</option>
                   <option value="Director">Director</option>
                 </select>
               </div>
               <div className='flex w-[100%] items-center'>
                 <label htmlFor="responsibility">Department : &nbsp;</label>
                 <select id="positions" name="positions" className='rounded-[5px] w-[60%]'>
-                  <option value="Professor">CST</option>
-                  <option value="HOD">IT</option>
-                  <option value="Dean">ETC</option>
-                  <option value="Director">EE</option>
-                  <option value="Dean">MECH</option>
-                  <option value="Director">META</option>
+                  <option value="HR">HR</option>
+                  <option value="Technical">Technical</option>
+                  <option value="Finance">Finance</option>
+                  <option value="Sales">Sales</option>
+                  <option value="Marketing">Marketing</option>
+                  <option value="Customer Service">Customer Service</option>
                 </select>
               </div>
             </div>

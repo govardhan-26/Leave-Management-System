@@ -5,16 +5,18 @@ const LeaveHistory = () => {
 
   const Leaves = [
                     { 
-                      Name : "Singa Sai Prasad",
                       Type_of_Leave : "Sick",
                       No_of_days : "10",
-                      Result : "Rejected"
+                      Result : "Rejected",
+                      From : "01 June 2023",
+                      To : "10 June 2023"
                     },
                     {
-                      Name : "Sairam", 
-                      Type_of_Leave : "Maternity",
+                      Type_of_Leave : "Piligrimage",
                       No_of_days : "10",
-                      Result : "Accepted"
+                      Result : "Accepted",
+                      From : "01 June 2023",
+                      To : "10 June 2023"
                     }
   ]
 
@@ -28,17 +30,19 @@ const LeaveHistory = () => {
               <table class="w-full border border-gray-200">
                 <thead>
                     <tr class="bg-gray-100">
-                        <th class="border border-gray-300 px-4 py-2">Name</th>
                         <th class="border border-gray-300 px-4 py-2">Type of Leave</th>
+                        <th class="border border-gray-300 px-4 py-2">From</th>
+                        <th class="border border-gray-300 px-4 py-2">To</th>
                         <th class="border border-gray-300 px-4 py-2">No of Days</th>
-                        <th class="border border-gray-300 px-4 py-2 w-[40%]">Accept/Forward/Reject</th>
+                        <th class="border border-gray-300 px-4 py-2 w-[40%]">Accepted/Pending/Rejected</th>
                     </tr>
                 </thead>
                 <tbody>
                     {Leaves.map((leave, leaveid)=>(
                       <tr className={leaveid % 2 === 0 ? 'bg-white' : 'bg-gray-100'} key={leaveid}>
-                        <td class="border border-gray-300 px-4 py-2">{leave.Name}</td>
                         <td class="border border-gray-300 px-4 py-2">{leave.Type_of_Leave}</td>
+                        <td class="border border-gray-300 px-4 py-2">{leave.From}</td>
+                        <td class="border border-gray-300 px-4 py-2">{leave.To}</td>
                         <td class="border border-gray-300 px-4 py-2">{leave.No_of_days}</td>
                         <td class="border border-gray-300 px-4 py-2 flex justify-evenly">
                           {leave.Result}
