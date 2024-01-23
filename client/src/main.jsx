@@ -11,6 +11,7 @@ import LeaveReq from './components/LeaveReq.jsx'
 import LeaveHistory from './components/LeaveHistory.jsx'
 import Application from './components/Application.jsx'
 import Admin1 from "./components/Admin1.jsx"
+import AdminCreatedept from './components/AdminCreatedept.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -25,6 +26,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <Route path='/leavehistory' element={<LeaveHistory/>} />
             <Route path='/application' element={<Application/>} />
             <Route path='/admin' element={<Admin1/>} />
+            <Route path='/admin/createdept' element={<AdminCreatedept/>} />
 
           </Routes>
       </BrowserRouter>
