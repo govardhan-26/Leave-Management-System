@@ -17,17 +17,17 @@ const AdminSidebar = () => {
           </Sidebar.Item>
           <Sidebar.Collapse icon={FcLeave} label="Department">
             <Sidebar.Item href="/admin/createdept" icon={MdOutlinePendingActions}>New Department</Sidebar.Item>
-            <Sidebar.Item href="/Dept List" icon={SlCalender}>Department List</Sidebar.Item>
+            <Sidebar.Item href="/admin/createdeptlist" icon={SlCalender}>Department List</Sidebar.Item>
           </Sidebar.Collapse>
 
           <Sidebar.Collapse icon={FcLeave} label="Leave Type">
-            <Sidebar.Item href="/New Leave Type" icon={MdOutlinePendingActions}>New Leave Type</Sidebar.Item>
+            <Sidebar.Item href="/admin/Leavetype" icon={MdOutlinePendingActions}>New Leave Type</Sidebar.Item>
             <Sidebar.Item href="/Leave Type List" icon={SlCalender}>Leave Type List</Sidebar.Item>
           </Sidebar.Collapse>
           
           <Sidebar.Collapse icon={FcLeave} label="Employee">
-            <Sidebar.Item href="/New_Emp" icon={MdOutlinePendingActions}>New Employee</Sidebar.Item>
-            <Sidebar.Item href="/Emp List" icon={SlCalender}>Employee List</Sidebar.Item>
+            <Sidebar.Item href="/admin/Employee" icon={MdOutlinePendingActions}>New Employee</Sidebar.Item>
+            <Sidebar.Item href="/admin/Employeelist" icon={SlCalender}>Employee List</Sidebar.Item>
           </Sidebar.Collapse>
 
           <Sidebar.Item href="/Login" icon={CiLogout}>
