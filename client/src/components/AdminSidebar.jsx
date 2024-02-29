@@ -22,7 +22,7 @@ const AdminSidebar = () => {
 
           <Sidebar.Collapse icon={FcLeave} label="Leave Type">
             <Sidebar.Item href="/admin/Leavetype" icon={MdOutlinePendingActions}>New Leave Type</Sidebar.Item>
-            <Sidebar.Item href="/Leave Type List" icon={SlCalender}>Leave Type List</Sidebar.Item>
+            <Sidebar.Item href="/admin/Leavetypelist" icon={SlCalender}>Leave Type List</Sidebar.Item>
           </Sidebar.Collapse>
           
           <Sidebar.Collapse icon={FcLeave} label="Employee">

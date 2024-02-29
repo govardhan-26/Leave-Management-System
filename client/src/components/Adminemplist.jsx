@@ -8,7 +8,6 @@ const Adminemplist = () => {
     { name: 'Shravya', Gender: 'Female', phoneNumber: '9876543210', email: 'shravya@example.com' },
     { name: 'Govardhan', Gender: 'Male', phoneNumber: '9876543210', email: 'gova@example.com' },
     { name: 'Goutham', Gender: 'Male', phoneNumber: '9876543210', email: 'rathod@example.com' },
-    
   ]);
 
   const [newEmployee, setNewEmployee] = useState({
@@ -41,6 +40,18 @@ const Adminemplist = () => {
     });
   };
 
+  const handleModify = (index) => {
+    // Handle modification of the employee
+    console.log(`Modify employee at index ${index}`);
+  };
+
+  const handleDelete = (index) => {
+    // Handle deletion of the employee
+    const updatedEmployees = [...employees];
+    updatedEmployees.splice(index, 1);
+    setEmployees(updatedEmployees);
+  };
+
   return (
     <div className='flex'>
       <AdminSidebar />
@@ -55,6 +66,7 @@ const Adminemplist = () => {
               <th className='border py-2 px-4'>Gender </th>
               <th className='border py-2 px-4'>Phone Number</th>
               <th className='border py-2 px-4'>Email</th>
+              <th className='border py-2 px-4'>Actions</th> {/* New column for actions */}
             </tr>
           </thead>
           <tbody>
@@ -65,6 +77,20 @@ const Adminemplist = () => {
                 <td className='border py-2 px-4'>{employee.Gender}</td>
                 <td className='border py-2 px-4'>{employee.phoneNumber}</td>
                 <td className='border py-2 px-4'>{employee.email}</td>
+                <td className='border py-2 px-4'>
+                  <button
+                    onClick={() => handleModify(index)}
+                    className='bg-blue-500 text-white px-4 py-2 mr-2 rounded-lg'
+                  >
+                    Modify
+                  </button>
+                  <button
+                    onClick={() => handleDelete(index)}
+                    className='bg-red-500 text-white px-4 py-2 rounded-lg'
+                  >
+                    Delete
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
