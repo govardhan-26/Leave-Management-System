@@ -10,13 +10,13 @@ import Profile from './components/Profile.jsx'
 import LeaveReq from './components/LeaveReq.jsx'
 import LeaveHistory from './components/LeaveHistory.jsx'
 import Application from './components/Application.jsx'
-import Admin1 from "./components/Admin1.jsx"
-import AdminCreatedept from './components/AdminCreatedept.jsx'
-import Admindeptlist from './components/Admindeptlist.jsx'
-import AdminLeavetype from './components/AdminLeavetype.jsx'
-import AdminLeavelist from './components/AdminLeavelist.jsx'
-import Adminemp from './components/Adminemp.jsx'
-import Adminemplist from './components/Adminemplist.jsx'
+import Admin1 from "./components/Admin/Admin1.jsx"
+import AdminCreatedept from './components/Admin/AdminCreatedept.jsx'
+import Admindeptlist from './components/Admin/Admindeptlist.jsx'
+import AdminLeavetype from './components/Admin/AdminLeavetype.jsx'
+import AdminLeavelist from './components/Admin/AdminLeavelist.jsx'
+import Adminemp from './components/Admin/Adminemp.jsx'
+import Adminemplist from './components/Admin/Adminemplist.jsx'
 
 
 
