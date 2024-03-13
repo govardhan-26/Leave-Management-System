@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import SidebarComponent from './SidebarComponent';
+import SidebarComponent from '../SidebarComponent';
 import AdminSidebar from './AdminSidebar';
 
 const AdminCreatedept = () => {

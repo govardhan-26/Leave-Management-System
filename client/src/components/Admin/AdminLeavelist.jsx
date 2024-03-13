@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
-import SidebarComponent from './SidebarComponent';
+import SidebarComponent from '../SidebarComponent';
 import AdminSidebar from './AdminSidebar';
 
-const Admindeptlist = () => {
+const AdminLeavelist = () => {
   const [departments, setDepartments] = useState([
-    { name: 'Computer Science', isActive: true },
-    { name: 'Mechanical Engineering', isActive: true },
-    { name: 'Cyber Security', isActive: false },
-    { name: 'Aerospace Engineering', isActive: true },
+    { name: 'Sick Leave', details: 'Sick Details', isActive: true },
+    { name: 'Causual Leave', details: 'Causual Details', isActive: true },
+    { name: 'Vacation', details: 'Vacation Details', isActive: false },
+    { name: 'Matarnity', details: 'Matarnity Details', isActive: true },
     
   ]);
 
   const [newDepartment, setNewDepartment] = useState({
     name: '',
+    details: '',
     isActive: true,
   });
 
@@ -40,6 +41,7 @@ const Admindeptlist = () => {
     // Clear the form after submission
     setNewDepartment({
       name: '',
+      details: '',
       isActive: true,
     });
   };
@@ -49,12 +51,13 @@ const Admindeptlist = () => {
       <AdminSidebar />
 
       <div className='w-full p-20 rounded-[5px] bg-gray-100 m-[3%]'>
-        <h2 className='text-center mb-4'>Department List</h2>
+        <h2 className='text-center mb-4'>Leave List</h2>
         <table className='border-collapse w-full'>
           <thead>
             <tr className='bg-gray-200'>
               <th className='border py-2 px-4'>Sl. No.</th>
-              <th className='border py-2 px-4'>Department Name</th>
+              <th className='border py-2 px-4'>Leave Type</th>
+              <th className='border py-2 px-4'>Details</th>
               <th className='border py-2 px-4'>Status</th>
             </tr>
           </thead>
@@ -63,6 +66,7 @@ const Admindeptlist = () => {
               <tr className={index % 2 === 0 ? 'bg-white' : 'bg-gray-100'} key={index}>
                 <td className='border py-2 px-4'>{index + 1}</td>
                 <td className='border py-2 px-4'>{dept.name}</td>
+                <td className='border py-2 px-4'>{dept.details}</td>
                 <td className='border py-2 px-4'>{dept.isActive ? 'Active' : 'Inactive'}</td>
               </tr>
             ))}
@@ -75,7 +79,7 @@ const Admindeptlist = () => {
             onClick={handleSubmit}
             className='text-white bg-blue-500 bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center'
           >
-            Create Department
+            Apply Leave
           </button>
         </div>
       </div>
@@ -83,4 +87,4 @@ const Admindeptlist = () => {
   );
 };
 
-export default Admindeptlist;
+export default AdminLeavelist;
