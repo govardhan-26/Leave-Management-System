@@ -1,8 +1,5 @@
-const express = require('express');
+const AuthRoutes = require('express').Router();
 const AuthControllers = require('../controllers/Auth/AuthControllers');
-
-
-const AuthRoutes = express.Router();
 
 // Define the route for the LoginUser endpoint
 AuthRoutes.post('/LoginUser', AuthControllers.LoginUser);

@@ -8,3 +8,16 @@
 "Phone": 9784567200,
 "Email": "govardhan01@gmail.com",
 "Password": "Password@24"
+
+
+department info
+_id
+65dec1eb95a285c766b1d8c6
+DepartmentName
+"Civil Engineering"
+DepartmentShortName
+"CE"
+DepartmentDetails
+"One of the oldest department in our college"
+DepartmentStatus
+true
