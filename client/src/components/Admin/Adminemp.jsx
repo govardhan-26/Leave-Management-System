@@ -29,11 +29,30 @@ const Adminemp = () => {
     });
   };
 
-  const submitRequest = (event) => {
+  const submitRequest = async (event) => {
     event.preventDefault();
-    // Handle form submission logic here
-    console.log(employeeDetails);
+    
+    try {
+      const response = await fetch('https://localhost:8080/api/v1/Employee/EmployeeCreate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(employeeDetails),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to submit request');
+      }
+  
+      // Assuming the API returns some data, you can handle it here
+      // const data = await response.json();
+      // console.log('Request submitted successfully:', data);
+    } catch (error) {
+      console.error('Error submitting request:', error);
+    }
   };
+  
 
   return (
     <div className='flex'>
