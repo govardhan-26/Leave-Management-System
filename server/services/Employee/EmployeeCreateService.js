@@ -20,9 +20,9 @@ const EmployeeCreateService = async (req,DataModel) =>{
         throw CreateError("Employee already created ",400);
     }
 
-    if(isStrongPassword(PostBody.Password) === false){
-       throw  CreateError('The Password should contain at least one uppercase letter,'+         
-           'one lowercase letter, one number and one special character',400);}    
+    // if(isStrongPassword(PostBody.Password) === false){
+    //    throw  CreateError('The Password should contain at least one uppercase letter,'+         
+    //        'one lowercase letter, one number and one special character',400);}    
     PostBody.Password = await HashPassword(PostBody.Password);
     await DataModel.create(PostBody);
     

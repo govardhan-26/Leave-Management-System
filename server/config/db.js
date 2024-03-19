@@ -1,20 +1,16 @@
 
 const mongoose = require("mongoose");
-const connectDB = async (DATABASE_URL, DB_OPTIONS) => {
+const connectDB = async () => {
     try {
     //   console.log("DATABASE_URL:", DATABASE_URL);
     //   console.log("DB_OPTIONS:", DB_OPTIONS);
   
-      await mongoose.connect(DATABASE_URL, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        ...DB_OPTIONS,
-      });
+      await mongoose.connect('mongodb+srv://gowa:gowa@cluster0.ga43ixn.mongodb.net/');
   
-      console.log(DB_OPTIONS.dbName + ' Database Connected Successfully...');
+      // console.log(DB_OPTIONS.dbName + ' Database Connected Successfully...');
     } catch (error) {
       console.error(error);
-      console.log(DB_OPTIONS.dbName + ' Database Connection Failure...');
+      // consolex.log(DB_OPTIONS.dbName + ' Database Connection Failure...');
     }
   };
 

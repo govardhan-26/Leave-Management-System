@@ -5,7 +5,7 @@ const EmployeeSchema = new Schema(
         DepartmentId: {
             type: Schema.Types.ObjectId,
             ref: "Department",
-            required: true,
+            // required: true,
         },
         FirstName: {
             type: String,

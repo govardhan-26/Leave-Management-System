@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import SidebarComponent from '../SidebarComponent';
 import AdminSidebar from './AdminSidebar';
 
-const AdminLeavetype = () => {
+const Leavetype = () => {
   const [leaveType, setLeaveType] = useState('');
   const [isActive, setIsActive] = useState(true);
 
@@ -58,4 +58,4 @@ const AdminLeavetype = () => {
   );
 };
 
-export default AdminLeavetype;
+export default Leavetype;

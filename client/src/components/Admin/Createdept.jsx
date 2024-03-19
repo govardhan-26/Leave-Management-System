@@ -2,16 +2,45 @@ import React, { useState } from 'react';
 import SidebarComponent from '../SidebarComponent';
 import AdminSidebar from './AdminSidebar';
 
-const AdminCreatedept = () => {
+const Createdept = () => {
   const [isActive, setIsActive] = useState(true);
+  const [departmentDetails, setDepartmentDetails] = useState({
+    DepartmentName: '',
+    DepartmentShortName : ''
+  });
+
 
   const handleCheckboxChange = () => {
     setIsActive(!isActive);
   };
 
-  const submitRequest = (event) => {
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setDepartmentDetails({
+      ...departmentDetails,
+      [name]: value,
+    });
+  };
+
+  const submitRequest = async (event) => {
     event.preventDefault();
-    // Handle form submission logic here
+    
+    try {
+      const response = await fetch('http://localhost:8080/api/v1/Department/DepartmentCreate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(departmentDetails),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to submit request');
+      }
+
+    } catch (error) {
+      console.error('Error submitting request:', error);
+    }
   };
 
   return (
@@ -22,9 +51,12 @@ const AdminCreatedept = () => {
           <div className='flex text-center items-center justify-evenly'>
 
           
-            <div className='flex text-center items-center justify-evenly'>
-              <h1 className='flex text-center mt-[30px] items-center justify-start pl-[131px]'><b>Department Name : &nbsp;</b><input type="text" className='rounded-[5px]' /></h1>
-              <h1 className='flex text-center mt-[30px] items-center justify-start pl-[131px]'><b>Department Code : &nbsp;</b><input type="text" className='rounded-[5px]' /></h1>
+            <div className='flex text-center items-center justify-evenly '>
+              <div className='flex items-center'>
+                <h1 className='border  '>Department Name {":"} &nbsp;</h1>
+                <input type="text" className='rounded-[5px]' name='DepartmentName' value={departmentDetails.DepartmentName} onChange={handleInputChange}/>
+              </div>
+              <div className='flex items-center border '><b>Department ShortName : &nbsp;</b><input type="text" className='rounded-[5px]' name='DepartmentShortName' value={departmentDetails.DepartmentShortName} onChange={handleInputChange}/></div>
             </div>
 
           </div>
@@ -53,4 +85,4 @@ const AdminCreatedept = () => {
   );
 };
 
-export default AdminCreatedept;
+export default Createdept;
