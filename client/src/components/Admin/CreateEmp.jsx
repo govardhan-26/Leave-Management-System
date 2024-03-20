@@ -4,10 +4,10 @@ import AdminSidebar from "./AdminSidebar";
 
 const CreateEmp = () => {
   const [isActive, setIsActive] = useState(true);
-  const [DepartmentID, setDepartmentID] = useState("");
+  // const [DepartmentID, setDepartmentID] = useState("");
 
   const [employeeDetails, setEmployeeDetails] = useState({
-    DepartmentId: "",
+    // DepartmentId: "",
     FirstName: "",
     LastName: "",
     DateOfBirth: "",
@@ -51,8 +51,8 @@ const CreateEmp = () => {
       console.log();
       for (let i = 0; i < data.length; i++) {
         if (data[i].DepartmentName === employeeDetails.DepartmentName) {
-          setDepartmentID(data[i]._id);
-          setEmployeeDetails({ ...employeeDetails, DepartmentId: data[i]._id });
+          // setDepartmentID(data[i]._id);
+          // setEmployeeDetails({ ...employeeDetails, DepartmentId: data[i]._id });
         }
       }
     } catch (error) {
@@ -64,7 +64,7 @@ const CreateEmp = () => {
     event.preventDefault();
 
     try {
-      fetchDeptId();
+      // fetchDeptId();
       console.log(employeeDetails);
 
       const response = await fetch(

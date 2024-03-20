@@ -2,19 +2,19 @@ console.log("starting employee.js");
 const { model, Schema } = require('mongoose');
 const EmployeeSchema = new Schema(
     {
-        DepartmentId: {
-            type: Schema.Types.ObjectId,
-            ref: "Department",
-            required: true,
-        },
-
-
-        // DepartmentName: {
-        //     type: String,
+        // DepartmentId: {
+        //     type: Schema.Types.ObjectId,
         //     ref: "Department",
         //     required: true,
-        //     unique: true,
         // },
+
+
+        DepartmentName: {
+            type: String,
+            ref: "Department",
+            required: true,
+            unique: true,
+        },
 
 
         FirstName: {
@@ -37,10 +37,10 @@ const EmployeeSchema = new Schema(
             type: String,
             required: true,
         },
-        DepartmentName: {
-            type: String,
-            required: true,
-        },
+        // DepartmentName: {
+        //     type: String,
+        //     required: true,
+        // },
         Phone: {
             type: Number,
             required: true,
