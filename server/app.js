@@ -16,6 +16,7 @@ const AuthRoutes = require("./routes/AuthRoutes");
 const EmployeeRoutes = require("./routes/EmployeeRoutes");
 const DepartmentRoutes = require("./routes/DepartmentRoutes");
 const LeaveTypeRoutes = require("./routes/LeaveTypeRoutes");
+const LeaveRoutes = require("./routes/LeaveRoutes");
 
 const connectDB = require("./config/db");
 
@@ -50,7 +51,7 @@ server.use("/api/v1/Auth", AuthRoutes);
 server.use("/api/v1/Employee", EmployeeRoutes);
 server.use("/api/v1/Department", DepartmentRoutes);
 server.use("/api/v1/LeaveType", LeaveTypeRoutes);
-
+server.use("/api/v1/Leave",LeaveRoutes);
 
 // server.use("/api/v1",routes);
 

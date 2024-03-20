@@ -34,7 +34,7 @@ LeaveTypeRoutes.patch(
   );
 
   LeaveTypeRoutes.delete(
-    "/LeaveTypeDelete/:value", // Use a parameter name like 'value' for LeaveTypeName
+    "/LeaveTypeDelete/:id", // Use a parameter name like 'value' for LeaveTypeName
     LeaveTypeControllers.LeaveTypeDelete,
 );
 
