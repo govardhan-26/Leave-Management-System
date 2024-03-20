@@ -3,7 +3,9 @@ console.log("starting server.js");
 const express = require('express');
 const server = express();
 const cors = require('cors');
+
 server.use(cors());
+
 
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
@@ -39,13 +41,7 @@ server.use(morgan("dev"));
 
 
 //Connect to MongoDB
-connectDB(process.env.MONGODB_CONNECTION_URL,{
-  user: process.env.MONGODB_DATABASE_USERNAME,
-  pass: process.env.MONGODB_DATABASE_PASSWORD,
-  dbName: process.env.MONGODB_DATABASE_NAME,
-  autoIndex: true,
-  w: 'majority',
-});
+connectDB();
 
 
 

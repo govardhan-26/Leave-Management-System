@@ -37,6 +37,10 @@ const EmployeeSchema = new Schema(
             type: String,
             required: true,
         },
+        DepartmentName: {
+            type: String,
+            required: true,
+        },
         Phone: {
             type: Number,
             required: true,

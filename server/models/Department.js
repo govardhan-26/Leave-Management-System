@@ -9,7 +9,6 @@ const DepartmentSchema = new Schema(
         },
         DepartmentShortName: {
             type: String,
-            required: true,
             unique: true,
         },
         DepartmentDetails: {

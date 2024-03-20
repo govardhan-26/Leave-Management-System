@@ -10,13 +10,14 @@ import Profile from './components/Profile.jsx'
 import LeaveReq from './components/LeaveReq.jsx'
 import LeaveHistory from './components/LeaveHistory.jsx'
 import Application from './components/Application.jsx'
-import Admin1 from "./components/Admin/Admin1.jsx"
-import AdminCreatedept from './components/Admin/AdminCreatedept.jsx'
-import Admindeptlist from './components/Admin/Admindeptlist.jsx'
-import AdminLeavetype from './components/Admin/AdminLeavetype.jsx'
-import AdminLeavelist from './components/Admin/AdminLeavelist.jsx'
-import Adminemp from './components/Admin/Adminemp.jsx'
-import Adminemplist from './components/Admin/Adminemplist.jsx'
+import Createdept from './components/Admin/Createdept.jsx'
+import Deptlist from './components/Admin/Deptlist.jsx'
+import Leavetype from './components/Admin/Leavetype.jsx'
+import Leavelist from './components/Admin/Leavelist.jsx'
+import CreateEmp from './components/Admin/CreateEmp.jsx'
+import Emplist from './components/Admin/Emplist.jsx'
+import AdminDashboard from './components/Admin/AdminDashboard.jsx'
+
 
 
 
@@ -33,13 +34,13 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <Route path='/leavereq' element={<LeaveReq/>} />
             <Route path='/leavehistory' element={<LeaveHistory/>} />
             <Route path='/application' element={<Application/>} />
-            <Route path='/admin' element={<Admin1/>} />
-            <Route path='/admin/createdept' element={<AdminCreatedept/>} />
-            <Route path='/admin/createdeptlist' element={<Admindeptlist/>} />
-            <Route path='/admin/Leavetype' element={<AdminLeavetype/>} />
-            <Route path='/admin/Leavetypelist' element={<AdminLeavelist/>} />
-            <Route path='/admin/Employee' element={<Adminemp/>} />
-            <Route path='/admin/Employeelist' element={<Adminemplist/>} />
+            <Route path='/admin' element={<AdminDashboard/>} /> 
+            <Route path='/admin/createdept' element={<Createdept/>} />
+            <Route path='/admin/createdeptlist' element={<Deptlist/>} />
+            <Route path='/admin/Leavetype' element={<Leavetype/>} />
+            <Route path='/admin/Leavetypelist' element={<Leavelist/>} />
+            <Route path='/admin/Employee' element={<CreateEmp/>} />
+            <Route path='/admin/Employeelist' element={<Emplist/>} />
             
             
 

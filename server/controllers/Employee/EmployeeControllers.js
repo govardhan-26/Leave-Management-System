@@ -20,7 +20,7 @@ const EmployeeCreate = async (req,res,next)=>{
 /**
  * @desc Employee List
  * @access private
- * @route /api/v1/Employee/EmployeeList/:DepratmentId
+ * @route /api/v1/Employee/EmployeeList/:DepartmentId
  * @method GET
  */
 

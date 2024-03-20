@@ -22,7 +22,7 @@
   
 
 
-  const mongoose = require("mongoose");
+const mongoose = require("mongoose");
 const connectDB = async () => {
     try {
     //   console.log("DATABASE_URL:", DATABASE_URL);

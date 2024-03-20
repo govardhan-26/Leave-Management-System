@@ -12,7 +12,7 @@ const AdminSidebar = () => {
     <Sidebar aria-label="Sidebar with multi-level dropdown example">
       <Sidebar.Items>
         <Sidebar.ItemGroup>
-          <Sidebar.Item href="/dashboard" icon={HiChartPie}>
+          <Sidebar.Item href="/admin" icon={HiChartPie}>
             Dashboard
           </Sidebar.Item>
           <Sidebar.Collapse icon={FcLeave} label="Department">
