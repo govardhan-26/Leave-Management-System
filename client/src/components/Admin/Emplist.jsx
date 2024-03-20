@@ -44,7 +44,7 @@ const Emplist = () => {
         }
       }
 
-      const departments = await fetch(`http://localhost:8080/api/v1/Employee/EmployeeList/:${DepartmentID}`, 
+      const departments = await fetch(`http://localhost:8080/api/v1/Employee/EmployeeList/${DepartmentID}`,
       {
         method : "GET",
         headers : {

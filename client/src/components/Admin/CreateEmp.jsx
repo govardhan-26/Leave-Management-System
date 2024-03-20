@@ -4,13 +4,17 @@ import AdminSidebar from "./AdminSidebar";
 
 const CreateEmp = () => {
   const [isActive, setIsActive] = useState(true);
+  const [DepartmentID, setDepartmentID] = useState("");
+
   const [employeeDetails, setEmployeeDetails] = useState({
+    DepartmentId: "",
     FirstName: "",
     LastName: "",
     DateOfBirth: "",
     Gender: "",
     Phone: "",
     Address: "",
+    DepartmentName: "",
     Roles: "",
     Email: "",
     Password: "",
@@ -29,10 +33,40 @@ const CreateEmp = () => {
     });
   };
 
+  const fetchDeptId = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:8080/api/v1/Department/DepartmentList",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Failed to submit request");
+      }
+      const data = await response.json();
+      console.log();
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].DepartmentName === employeeDetails.DepartmentName) {
+          setDepartmentID(data[i]._id);
+          setEmployeeDetails({ ...employeeDetails, DepartmentId: data[i]._id });
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching department:", error);
+    }
+  };
+
   const submitRequest = async (event) => {
     event.preventDefault();
 
     try {
+      fetchDeptId();
+      console.log(employeeDetails);
+
       const response = await fetch(
         "http://localhost:8080/api/v1/Employee/EmployeeCreate",
         {
@@ -60,7 +94,10 @@ const CreateEmp = () => {
     <div className="flex h-[100vh]">
       <AdminSidebar />
       <div className="w-[80%] h-[90%]  p-10 rounded-[20px] bg-gray-100 m-[3%]">
-        <form onSubmit={submitRequest} className="flex flex-col justify-evenly w-[100%] h-[100%]">
+        <form
+          onSubmit={submitRequest}
+          className="flex flex-col justify-evenly w-[100%] h-[100%]"
+        >
           <div className="flex text-left items-center justify-between ">
             <div className="flex mt-[30px] items-center justify-start w-[45%]">
               <h1 className="mr-[10px]">
@@ -217,7 +254,7 @@ const CreateEmp = () => {
                 name="Image"
                 accept="image/*"
                 onChange={handleInputChange}
-                className="rounded-[5px] w-[80%]"
+                className="rounded-[5px] w-[30%] border border-black cursor-pointer"
               />
             </div>
           </div>
