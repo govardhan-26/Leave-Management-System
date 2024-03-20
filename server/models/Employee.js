@@ -7,6 +7,16 @@ const EmployeeSchema = new Schema(
             ref: "Department",
             required: true,
         },
+
+
+        // DepartmentName: {
+        //     type: String,
+        //     ref: "Department",
+        //     required: true,
+        //     unique: true,
+        // },
+
+
         FirstName: {
             type: String,
             required: true,
@@ -71,5 +81,6 @@ const EmployeeSchema = new Schema(
         timestamps: true,
     },
 );
+
 const Employee =  model("Employee",EmployeeSchema);
 module.exports = Employee;

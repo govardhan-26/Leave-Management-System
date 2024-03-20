@@ -1,13 +1,25 @@
 
-const ObjectId = require("mongoose").Types.ObjectId;
+// const ObjectId = require("mongoose").Types.ObjectId;
+
+// const DeleteService = async (Request, DataModel) => {
+//   const DeleteID = Request.params.id;
+
+//   const QueryObject = {};
+//   QueryObject._id = DeleteID;
+
+//   return await DataModel.deleteOne(QueryObject);
+// };
 
 const DeleteService = async (Request, DataModel) => {
-  const DeleteID = Request.params.id;
+  const DeleteValue = Request.params.value; // Get the LeaveTypeName from request parameters
 
-  const QueryObject = {};
-  QueryObject._id = DeleteID;
+  // Construct the query object to find the document by LeaveTypeName
+  const QueryObject = { LeaveTypeName: DeleteValue };
 
-  return await DataModel.deleteMany(QueryObject);
+  // Delete the document based on the query object
+  return await DataModel.deleteOne(QueryObject);
 };
+
+
 
 module.exports = DeleteService;

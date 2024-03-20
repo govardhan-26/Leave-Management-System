@@ -10,7 +10,7 @@ EmployeeRoutes.post(
 
 //Employee List
 EmployeeRoutes.get(
-    "/EmployeeList/:departmentId",
+    "/EmployeeList/:DepartmentId",
     EmployeeControllers.EmployeeList,
   );
 module.exports = EmployeeRoutes;

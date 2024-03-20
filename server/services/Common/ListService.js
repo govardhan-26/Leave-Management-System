@@ -1,10 +1,10 @@
-const ListService = async (Request, DataModel, SearchArray) => {
+const ListService = async (req, DataModel, SearchArray) => {
     try {
-        // Retrieve all departments from the database
-        const departments = await DataModel.find();
+        // Retrieve all the documents from the database
+        const documents = await DataModel.find();
     
         // Return the list of departments
-        return departments;
+        return documents;
       } catch (error) {
         // Handle errors
         throw error;

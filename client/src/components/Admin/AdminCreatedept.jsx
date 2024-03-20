@@ -9,9 +9,29 @@ const AdminCreatedept = () => {
     setIsActive(!isActive);
   };
 
-  const submitRequest = (event) => {
+  const submitRequest = async (event) => {
     event.preventDefault();
-    // Handle form submission logic here
+    try {
+      console.log(employeeDetails)
+      const response = await fetch('http://localhost:8080/api/v1/Department/DepartmentCreate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          
+        },
+        body: JSON.stringify(employeeDetails),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to submit request');
+      }
+  
+      // Assuming the API returns some data, you can handle it here
+      const data = await response.json();
+      console.log('Request submitted successfully:', data);
+    } catch (error) {
+      console.error('Error submitting request:', error);
+    }
   };
 
   return (

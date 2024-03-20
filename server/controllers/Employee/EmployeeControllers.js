@@ -25,31 +25,37 @@ const EmployeeCreate = async (req,res,next)=>{
  */
 
 const EmployeeList = async (req, res, next) => {
-    const searchKeyword = req.params.searchKeyword;
-    // //  // Ensure that searchKeyword is a string
-    // if (typeof searchKeyword !== 'string') {
-    //      throw new Error('Search keyword must be a string');
-    // }
+  const searchKeyword = req.params.DepartmentId;
+  console.log(searchKeyword);
 
-    let SearchRgx = { $regex: searchKeyword, $options: "i" };
-    let SearchArray = [
-      {
-        FirstName: SearchRgx,
-        LastName: SearchRgx,
-        Gender: SearchRgx,
-        Address: SearchRgx,
-        Phone: SearchRgx,
-        Email: SearchRgx,
-      },
-    ];
-  
-    try {
-      const result = await EmployeeListService(req, Employee, SearchArray);
+  let query = {};
+
+  // Check if searchKeyword is a valid phone number
+  if (/^\d{10}$/.test(searchKeyword)) {
+      // If it's a valid phone number, search directly on Phone field
+      query.Phone = searchKeyword;
+  } else {
+      // If it's not a phone number, perform case-insensitive partial match on other fields
+      let searchRgx = new RegExp(searchKeyword, 'i');
+      query.$or = [
+          { FirstName: searchRgx },
+          { LastName: searchRgx },
+          { Gender: searchRgx },
+          { Address: searchRgx },
+          { Email: searchRgx }
+      ];
+  }
+
+  try {
+      const result = await Employee.find(query);
+      console.log(result);
       res.json(result);
-    } catch (error) {
+  } catch (error) {
       next(error);
-    }
-  };
+  }
+};
+
+
 
 module.exports = { 
     EmployeeCreate,
