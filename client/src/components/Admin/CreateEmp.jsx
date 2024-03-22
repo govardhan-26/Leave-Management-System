@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import SidebarComponent from "../SidebarComponent";
 import AdminSidebar from "./AdminSidebar";
 
@@ -10,12 +11,14 @@ const CreateEmp = () => {
 
   const [employeeDetails, setEmployeeDetails] = useState({
     DepartmentId: "",
+    DepartmentId: "",
     FirstName: "",
     LastName: "",
     DateOfBirth: "",
     Gender: "",
     Phone: "",
     Address: "",
+    // DepartmentName: "",
     // DepartmentName: "",
     Roles: "",
     Email: "",
@@ -98,7 +101,7 @@ const CreateEmp = () => {
     event.preventDefault();
 
     try {
-      // fetchDeptId();
+      fetchDeptId();
       console.log(employeeDetails);
 
       const response = await fetch(
@@ -268,6 +271,7 @@ const CreateEmp = () => {
               <h1 className="mr-[20px]">
                 <b>Department:</b>
               </h1>
+              <select
               <select
                 name="DepartmentName"
                 value={DepartmentName}
