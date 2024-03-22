@@ -21,7 +21,7 @@ const Deptlist = () => {
         const data = await response.json(); // Parse response body as JSON
       
         setDepartments(data); // Update departments state with the fetched data
-    
+        console.log(data);
       } catch (error) {
         console.error('Error submitting request:', error);
       }
@@ -50,7 +50,7 @@ const Deptlist = () => {
               <tr className={index % 2 === 0 ? 'bg-white' : 'bg-gray-100'} key={index}>
                 <td className='border py-2 px-4'>{index + 1}</td>
                 <td className='border py-2 px-4'>{dept.DepartmentName}</td>
-                <td className='border py-2 px-4'></td>
+                <td className='border py-2 px-4'>{dept.DepartmentStatus ? 'Active' : 'Inactive'}</td>
               </tr>
             ))}
           </tbody>
