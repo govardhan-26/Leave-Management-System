@@ -4,7 +4,6 @@ import AdminSidebar from "./AdminSidebar";
 
 const Emplist = () => {
   const [employees, setEmployees] = useState([]);
-
   const [DepartmentName, SetDepartmentName] = useState("");
   const [DepartmentID, SetDepartmentID] = useState("");
   const [Departments, setDepartments] = useState([]);
@@ -35,47 +34,37 @@ const Emplist = () => {
     
   },[])
 
-  const fetchDeptId = async () => {
-    try {
-      const response = await fetch(
-        "http://localhost:8080/api/v1/Department/DepartmentList",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      if (!response.ok) {
-        throw new Error("Failed to submit request");
-      }
-      const data = await response.json();
-      console.log(data);
-      for (let i = 0; i < data.length; i++) {
-        if (data[i].DepartmentName === DepartmentName) {
-          SetDepartmentID(data[i]._id);
-        }
-      }
+  
 
-      const departments = await fetch(`http://localhost:8080/api/v1/Employee/EmployeeList/${DepartmentID}`,
+  const fetchDeptId = async () => {
+    for (let i = 0; i < Departments.length; i++) {
+      if (Departments[i].DepartmentName === DepartmentName) {
+        SetDepartmentID(Departments[i]._id);
+      }
+    }
+    try {
+      const Emps = await fetch(`http://localhost:8080/api/v1/Employee/EmployeeList/${DepartmentID}`,
       {
         method : "GET",
         headers : {
           "content-Type" : "application/json",
         },
       });
-      if(!departments.ok){
+      if(!Emps.ok){
         throw new Error("Cant Fetch Depts");
       }
-
-      setEmployees(departments);
+      const emps = await Emps.json();
+      setEmployees(emps);
+      console.log(emps);
 
     } catch (error) {
       console.error("Error fetching department:", error);
     }
   };
 
- 
+  useEffect(() => {
+    fetchDeptId();
+  }, [DepartmentName])
 
   return (
     <div className="flex">
@@ -124,10 +113,10 @@ const Emplist = () => {
                 key={index}
               >
                 <td className="border py-2 px-4">{index + 1}</td>
-                <td className="border py-2 px-4">{employee.name}</td>
+                <td className="border py-2 px-4">{employee.FirstName}</td>
                 <td className="border py-2 px-4">{employee.Gender}</td>
-                <td className="border py-2 px-4">{employee.phoneNumber}</td>
-                <td className="border py-2 px-4">{employee.email}</td>
+                <td className="border py-2 px-4">{employee.Phone}</td>
+                <td className="border py-2 px-4">{employee.Email}</td>
                 <td className="border py-2 px-4">
                   <button
                    
