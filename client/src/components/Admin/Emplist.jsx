@@ -7,20 +7,33 @@ const Emplist = () => {
 
   const [DepartmentName, SetDepartmentName] = useState("");
   const [DepartmentID, SetDepartmentID] = useState("");
+  const [Departments, setDepartments] = useState([]);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get('YOUR_API_ENDPOINT');
-  //       setData(response.data);
-  //     } catch (error) {
-  //       console.error('Error fetching data:', error);
-  //     }
-  //   };
 
-  //   console.log(DepartmentName);
-
-  // },)
+  useEffect(() => {
+    async function GetDeptlist(){
+      try {
+        const response = await fetch('http://localhost:8080/api/v1/Department/DepartmentList', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+    
+        if (!response.ok) {
+          throw new Error('Failed to submit request');
+        }
+        const data = await response.json(); // Parse response body as JSON
+      
+        setDepartments(data); // Update departments state with the fetched data
+    
+      } catch (error) {
+        console.error('Error submitting request:', error);
+      }
+    }
+    GetDeptlist();
+    
+  },[])
 
   const fetchDeptId = async () => {
     try {
@@ -72,13 +85,19 @@ const Emplist = () => {
           <b>
             <h1>Department Name {":"} </h1>
           </b>
-          <input
-            type="text"
-            className="ml-[2%]"
-            onChange={(e) => {
-              SetDepartmentName(e.target.value);
-            }}
-          />
+          <select
+                name="DepartmentName"
+                onChange={(e) => {
+                  SetDepartmentName(e.target.value);
+                }}
+                className="rounded-[5px] w-[80%]"
+              >
+                <option value="">Select Department</option>
+                {Departments.map((dept, index) => (
+                  <option value={dept.DepartmentName} key={index}>{dept.DepartmentName}</option>
+                ))}
+                               
+              </select>
           <button
             className="h-[75%]  bg-blue-500 ml-[10%] p-[2%] text-white flex items-center justify-center rounded"
             onClick={fetchDeptId}

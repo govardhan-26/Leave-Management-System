@@ -1,20 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SidebarComponent from "../SidebarComponent";
 import AdminSidebar from "./AdminSidebar";
 
 const CreateEmp = () => {
   const [isActive, setIsActive] = useState(true);
-  // const [DepartmentID, setDepartmentID] = useState("");
+  const [DepartmentID, setDepartmentID] = useState("");
+  const [DepartmentName, setDepartmentName] = useState('');
+  const [Departments, setDepartments] = useState([]);
 
   const [employeeDetails, setEmployeeDetails] = useState({
-    // DepartmentId: "",
+    DepartmentId: "",
     FirstName: "",
     LastName: "",
     DateOfBirth: "",
     Gender: "",
     Phone: "",
     Address: "",
-    DepartmentName: "",
+    // DepartmentName: "",
     Roles: "",
     Email: "",
     Password: "",
@@ -33,6 +35,33 @@ const CreateEmp = () => {
     });
   };
 
+  useEffect(() => {
+    async function GetDeptlist(){
+      try {
+        const response = await fetch('http://localhost:8080/api/v1/Department/DepartmentList', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+    
+        if (!response.ok) {
+          throw new Error('Failed to submit request');
+        }
+        const data = await response.json(); // Parse response body as JSON
+      
+        setDepartments(data); // Update departments state with the fetched data
+    
+      } catch (error) {
+        console.error('Error submitting request:', error);
+      }
+    }
+    GetDeptlist();
+    
+  },[])
+
+  
+
   const fetchDeptId = async () => {
     try {
       const response = await fetch(
@@ -50,15 +79,20 @@ const CreateEmp = () => {
       const data = await response.json();
       console.log();
       for (let i = 0; i < data.length; i++) {
-        if (data[i].DepartmentName === employeeDetails.DepartmentName) {
-          // setDepartmentID(data[i]._id);
-          // setEmployeeDetails({ ...employeeDetails, DepartmentId: data[i]._id });
+        if (data[i].DepartmentName === DepartmentName) {
+          setDepartmentID(data[i]._id);
+          setEmployeeDetails({ ...employeeDetails, DepartmentId: data[i]._id });
         }
       }
     } catch (error) {
       console.error("Error fetching department:", error);
     }
   };
+
+  useEffect(() => {
+    fetchDeptId();
+    console.log(employeeDetails.DepartmentId);
+  }, [DepartmentName])
 
   const submitRequest = async (event) => {
     event.preventDefault();
@@ -234,15 +268,22 @@ const CreateEmp = () => {
               <h1 className="mr-[20px]">
                 <b>Department:</b>
               </h1>
-              <input
-                type="text"
+              <select
                 name="DepartmentName"
-                value={employeeDetails.DepartmentName}
-                onChange={handleInputChange}
+                value={DepartmentName}
+                onChange={(e) => {setDepartmentName(e.target.value)}}
                 className="rounded-[5px] w-[80%]"
-              />
+              >
+                <option value="">Select Department</option>
+                {Departments.map((dept, index) => (
+                  <option value={dept.DepartmentName} key={index}>{dept.DepartmentName}</option>
+                ))}
+                               
+              </select>
             </div>
           </div>
+
+
 
           <div className="flex text-left items-center justify-between">
             <div className="flex  items-center justify-start w-[80%]">
