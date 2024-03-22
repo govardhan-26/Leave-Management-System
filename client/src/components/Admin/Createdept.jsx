@@ -4,16 +4,23 @@ import AdminSidebar from './AdminSidebar';
 
 const Createdept = () => {
   const [isActive, setIsActive] = useState(true);
-  const [departmentDetails, setDepartmentDetails] = useState({
-    DepartmentName: '',
-    DepartmentShortName : ''
-  });
+const [departmentDetails, setDepartmentDetails] = useState({
+  DepartmentName: '',
+  DepartmentShortName: '',
+  DepartmentStatus: true, // Set initial value to true
+  DepartmentDetails: '',
+});
 
-
-  const handleCheckboxChange = () => {
-    setIsActive(!isActive);
-  };
-
+const handleCheckboxChange = () => {
+  // Toggle isActive state
+  setIsActive(!isActive);
+  
+  // Update DepartmentStatus based on isActive
+  setDepartmentDetails(prevState => ({
+    ...prevState,
+    DepartmentStatus: !isActive // Set DepartmentStatus to opposite of isActive
+  }));
+};
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setDepartmentDetails({
@@ -24,7 +31,7 @@ const Createdept = () => {
 
   const submitRequest = async (event) => {
     event.preventDefault();
-    
+    console.log(departmentDetails);
     try {
       const response = await fetch('http://localhost:8080/api/v1/Department/DepartmentCreate', {
         method: 'POST',
@@ -62,7 +69,7 @@ const Createdept = () => {
           </div>
           <div className='flex text-center mt-[30px] justify-start pl-[131px]'>
             <h1><b>Department Details : &nbsp;</b></h1>
-            <textarea type='text' className='w-[100%] h-[20vh] rounded-[5px]'></textarea>
+            <textarea type='text' className='w-[100%] h-[20vh] rounded-[5px]' name='DepartmentDetails' value={departmentDetails.DepartmentDetails} onChange={handleInputChange}></textarea>
           </div>
 
           <div className='flex text-center mt-[15px] justify-start pl-[131px]'>

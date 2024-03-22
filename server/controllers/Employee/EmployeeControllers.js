@@ -1,6 +1,7 @@
 const EmployeeCreateService = require("../../services/Employee/EmployeeCreateService");
 const Employee = require("../../models/Employee");
 const EmployeeListService = require("../../services/Employee/EmployeeListService");
+
 /**
  * @desc Employee Create
  * @access private
@@ -23,6 +24,8 @@ const EmployeeCreate = async (req,res,next)=>{
  * @route /api/v1/Employee/EmployeeList/:DepartmentId
  * @method GET
  */
+
+
 
 const EmployeeList = async (req, res, next) => {
     //   const deptId  = req.params;
