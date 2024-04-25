@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import SidebarComponent from "../SidebarComponent";
 import AdminSidebar from "./AdminSidebar";
+import { useParams } from "react-router-dom";
+
+
 
 const ModifyEmp = () => {
   const [isActive, setIsActive] = useState(true);
   const [DepartmentID, setDepartmentID] = useState("");
-  const [DepartmentName, setDepartmentName] = useState('');
+  const [DepartmentName, setDepartmentName] = useState("");
   const [Departments, setDepartments] = useState([]);
 
   const [employeeDetails, setEmployeeDetails] = useState({
@@ -22,9 +25,36 @@ const ModifyEmp = () => {
     Image: "",
   });
 
-  const handleCheckboxChange = () => {
-    setIsActive(!isActive);
-  };
+  const { id } = useParams();
+
+  useEffect(() => {
+    async function GetEmployee() {
+      try {
+        const response = await fetch(
+          "http://localhost:8080/api/v1/Department/DepartmentList",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to submit request");
+        }
+        const data = await response.json(); // Parse response body as JSON
+
+        setDepartments(data); // Update departments state with the fetched data
+      } catch (error) {
+        console.error("Error submitting request:", error);
+      }
+    }
+    GetDeptlist();
+  }, )
+  
+
+  console.log(id);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -35,31 +65,30 @@ const ModifyEmp = () => {
   };
 
   useEffect(() => {
-    async function GetDeptlist(){
+    async function GetDeptlist() {
       try {
-        const response = await fetch('http://localhost:8080/api/v1/Department/DepartmentList', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-    
+        const response = await fetch(
+          "http://localhost:8080/api/v1/Department/DepartmentList",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
         if (!response.ok) {
-          throw new Error('Failed to submit request');
+          throw new Error("Failed to submit request");
         }
         const data = await response.json(); // Parse response body as JSON
-      
+
         setDepartments(data); // Update departments state with the fetched data
-    
       } catch (error) {
-        console.error('Error submitting request:', error);
+        console.error("Error submitting request:", error);
       }
     }
     GetDeptlist();
-    
-  },[])
-
-  
+  }, []);
 
   const fetchDeptId = async () => {
     try {
@@ -91,7 +120,7 @@ const ModifyEmp = () => {
   useEffect(() => {
     fetchDeptId();
     console.log(employeeDetails.DepartmentId);
-  }, [DepartmentName])
+  }, [DepartmentName]);
 
   const submitRequest = async (event) => {
     event.preventDefault();
@@ -270,19 +299,20 @@ const ModifyEmp = () => {
               <select
                 name="DepartmentName"
                 value={DepartmentName}
-                onChange={(e) => {setDepartmentName(e.target.value)}}
+                onChange={(e) => {
+                  setDepartmentName(e.target.value);
+                }}
                 className="rounded-[5px] w-[80%]"
               >
                 <option value="">Select Department</option>
                 {Departments.map((dept, index) => (
-                  <option value={dept.DepartmentName} key={index}>{dept.DepartmentName}</option>
+                  <option value={dept.DepartmentName} key={index}>
+                    {dept.DepartmentName}
+                  </option>
                 ))}
-                               
               </select>
             </div>
           </div>
-
-
 
           <div className="flex text-left items-center justify-between">
             <div className="flex  items-center justify-start w-[80%]">

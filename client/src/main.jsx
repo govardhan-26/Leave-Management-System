@@ -17,6 +17,7 @@ import Leavelist from './components/Admin/Leavelist.jsx'
 import CreateEmp from './components/Admin/CreateEmp.jsx'
 import Emplist from './components/Admin/Emplist.jsx'
 import AdminDashboard from './components/Admin/AdminDashboard.jsx'
+import ModifyEmp from './components/Admin/ModifyEmp.jsx'
 
 
 
@@ -41,7 +42,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <Route path='/admin/Leavetypelist' element={<Leavelist/>} />
             <Route path='/admin/Employee' element={<CreateEmp/>} />
             <Route path='/admin/Employeelist' element={<Emplist/>} />
-            
+            <Route path = '/ModifyEmp/:id' element = { <ModifyEmp/> }/>
             
 
           </Routes>

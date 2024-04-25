@@ -1,14 +1,32 @@
 import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link,  useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const submithandler = (e) =>{
-        e.preventDefault();
-        console.log(email)
-        console.log(password)
+    const Navigate = useNavigate();
+
+    const submithandler = async (e) =>{
+        try{
+            const response = await fetch("http://localhost:8080/api/v1/Auth/LoginUser",
+        {
+            method : "POST",
+            headers : { "Content-Type" : "application/json" },
+            body : JSON.stringify({Email : email, Password : password})
+        });
+        if (!response.ok) {
+            throw new Error("Failed to submit request");
+        }
+        else{
+            Navigate("/");
+        }
+
+        }
+        catch(error){
+            console.error("Error Logging in", error);
+        }
+        
     }
     return(
         <section className="bg-gray-50 dark:bg-gray-900">
