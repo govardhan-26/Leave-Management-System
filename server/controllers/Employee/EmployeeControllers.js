@@ -64,14 +64,25 @@ const EmployeeDetails = async (req, res, next) => {
  * @methud PATCH
  */
 
-const EmployeeUpdate = async (req, res, next) => {
+// const EmployeeUpdate = async (req, res, next) => {
+//     try {
+//       const result = await EmployeeUpdateService(req, Employee);
+//       res.json(result);
+//     } catch (error) {
+//       next(error);
+//     }
+//   };
+
+  const EmployeeUpdate = async (req, res, next) => {
     try {
-      const result = await EmployeeUpdateService(req, Employee);
+      const EmployeeId = req.params.id;
+      const requestBody = req.body;
+      const result = await EmployeeUpdateService(EmployeeId, requestBody, Employee);
       res.json(result);
     } catch (error) {
       next(error);
     }
-  };
+};
 
 module.exports = { 
     EmployeeCreate,
