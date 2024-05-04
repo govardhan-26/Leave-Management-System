@@ -6,6 +6,8 @@ const EmployeeDetailsService = require("../../services/Employee/EmployeeDetailsS
 const DetailsService = require("../../services/Common/DetailsService");
 const UpdateService = require("../../services/Common/UpdateService");
 const EmployeeUpdateService = require("../../services/Employee/EmployeeUpdateService");
+const EmployeePasswordChangeService = require("../../services/Employee/EmployeePasswordChangeService");
+
 /**
  * @desc Employee Create
  * @access private
@@ -84,9 +86,26 @@ const EmployeeDetails = async (req, res, next) => {
     }
 };
 
+/**
+ * @desc Employee Change Password
+ * @access private
+ * @route /api/v1/Employee/EmployeeChangePassword
+ * @methud PUT
+ */
+
+const EmployeeChangePassword = async (req, res, next) => {
+  try {
+    const result = await EmployeePasswordChangeService(req.body, Employee);
+    res.json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = { 
     EmployeeCreate,
     EmployeeList,
     EmployeeDetails,
     EmployeeUpdate,
+    EmployeeChangePassword,
  };

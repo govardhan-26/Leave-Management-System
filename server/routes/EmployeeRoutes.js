@@ -26,4 +26,11 @@ EmployeeRoutes.patch(
   EmployeeControllers.EmployeeUpdate,
 );
 
+//Employee Change Password
+EmployeeRoutes.put(
+  "/EmployeeChangePassword/:id",
+  EmployeeControllers.EmployeeChangePassword,
+);
+
+
 module.exports = EmployeeRoutes;
