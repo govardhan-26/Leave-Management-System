@@ -3,20 +3,51 @@ import SidebarComponent from '../SidebarComponent';
 import AdminSidebar from './AdminSidebar';
 
 const Leavetype = () => {
-  const [leaveType, setLeaveType] = useState('');
   const [isActive, setIsActive] = useState(true);
+
+  const [LeaveTypes, setLeaveTypes] = useState({
+    LeaveTypeName: '',
+    LeaveTypeDetails: '',
+    LeaveTypeStatus: true, 
+  });
 
   const handleCheckboxChange = () => {
     setIsActive(!isActive);
+    
+    setLeaveTypes(prevState => ({
+      ...prevState,
+      LeaveTypeStatus: !prevState.LeaveTypeStatus 
+    }));
   };
 
-  const handleLeaveTypeChange = (event) => {
-    setLeaveType(event.target.value);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setLeaveTypes({
+      ...LeaveTypes,
+      [name]: value,
+    });
   };
 
-  const submitRequest = (event) => {
+  
+
+  const submitRequest =async (event) => {
     event.preventDefault();
-    // Handle form submission logic here
+    console.log(LeaveTypes);
+    try{
+      const response = await fetch('http://localhost:8080/api/v1/LeaveType/LeaveTypeCreate',{
+        method : "POST",
+        headers : {
+          "content-Type" : "application/json",
+        },
+        body: JSON.stringify(LeaveTypes),
+      })
+      if(!response.ok){
+        console.log("Error Creating LeaveType")
+      }
+    }
+    catch(error){
+        console.error('Error submitting request:', error);      
+    }
   };
 
   return (
@@ -27,21 +58,17 @@ const Leavetype = () => {
           <div className='flex text-center items-center justify-evenly'>
             <div className='flex text-center mt-[30px] items-center justify-start pl-[131px]'>
               <h1><b>Leave Type : &nbsp;</b></h1>
-              <select
-                value={leaveType}
-                onChange={handleLeaveTypeChange}
-                className='rounded-[5px]'>
-                <option value=''>Select Leave Type</option>
-                <option value='sick'>Sick Leave</option>
-                <option value='vacation'>Vacation</option>
-                <option value='maternity_paternity'>Maternity/Paternity</option>
-                <option value='casual_leave'>Causal Leave</option>
-              </select>
+              <input
+                type='text'
+                name='LeaveTypeName'
+                value={LeaveTypes.LeaveTypeName}
+                onChange={handleInputChange}
+                className='rounded-[5px]' />
             </div>
           </div>
           <div className='flex text-center mt-[30px] justify-start pl-[130px]'>
             <h1><b>Leave Details: &nbsp;</b></h1>
-            <textarea type='text' className='w-[80%] h-[20vh] rounded-[5px]'></textarea>
+            <textarea type='text' className='w-[80%] h-[20vh] rounded-[5px]' name='LeaveTypeDetails' value={LeaveTypes.LeaveTypeDetails} onChange={handleInputChange}></textarea>
           </div>
           <div className='flex text-center mt-[15px] justify-start pl-[131px]'>
             <label className='mr-[10px]'>
@@ -59,3 +86,4 @@ const Leavetype = () => {
 };
 
 export default Leavetype;
+

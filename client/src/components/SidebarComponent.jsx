@@ -8,8 +8,14 @@ import { CiLogout } from "react-icons/ci";
 
 const SidebarComponent = () => {
   return (
-    <div className='flex h-[100vh] w-[fit-content] items-center border border-solid border-grey-500'>
-    <Sidebar aria-label="Sidebar with multi-level dropdown example">
+    <div className='md:flex h-[100vh] md:w-[fit-content] items-center border border-solid border-grey-500 w-[40px]  '>
+      <div className='md:hidden flex flex-col space-y-10 mt-[30px] ml-[5px]'>
+          <HiChartPie size={25}/>
+          <HiUser size={25}/>
+          <SiReacthookform size={25}/>
+          <CiLogout size={25}/>
+      </div>
+    <Sidebar className='md:block hidden'>
       <Sidebar.Items>
         <Sidebar.ItemGroup>
           <Sidebar.Item href="/dashboard" icon={HiChartPie}>

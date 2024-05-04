@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SidebarComponent from "../SidebarComponent";
 import AdminSidebar from "./AdminSidebar";
+import { Link } from "react-router-dom";
 
 const Emplist = () => {
   const [employees, setEmployees] = useState([]);
@@ -8,33 +9,31 @@ const Emplist = () => {
   const [DepartmentID, SetDepartmentID] = useState("");
   const [Departments, setDepartments] = useState([]);
 
-
   useEffect(() => {
-    async function GetDeptlist(){
+    async function GetDeptlist() {
       try {
-        const response = await fetch('http://localhost:8080/api/v1/Department/DepartmentList', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-    
+        const response = await fetch(
+          "http://localhost:8080/api/v1/Department/DepartmentList",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
         if (!response.ok) {
-          throw new Error('Failed to submit request');
+          throw new Error("Failed to submit request");
         }
         const data = await response.json(); // Parse response body as JSON
-      
+
         setDepartments(data); // Update departments state with the fetched data
-    
       } catch (error) {
-        console.error('Error submitting request:', error);
+        console.error("Error submitting request:", error);
       }
     }
     GetDeptlist();
-    
-  },[])
-
-  
+  }, []);
 
   const fetchDeptId = async () => {
     for (let i = 0; i < Departments.length; i++) {
@@ -43,20 +42,21 @@ const Emplist = () => {
       }
     }
     try {
-      const Emps = await fetch(`http://localhost:8080/api/v1/Employee/EmployeeList/${DepartmentID}`,
-      {
-        method : "GET",
-        headers : {
-          "content-Type" : "application/json",
-        },
-      });
-      if(!Emps.ok){
+      const Emps = await fetch(
+        `http://localhost:8080/api/v1/Employee/EmployeeList/${DepartmentID}`,
+        {
+          method: "GET",
+          headers: {
+            "content-Type": "application/json",
+          },
+        }
+      );
+      if (!Emps.ok) {
         throw new Error("Cant Fetch Depts");
       }
       const emps = await Emps.json();
       setEmployees(emps);
       console.log(emps);
-
     } catch (error) {
       console.error("Error fetching department:", error);
     }
@@ -64,7 +64,7 @@ const Emplist = () => {
 
   useEffect(() => {
     fetchDeptId();
-  }, [DepartmentName])
+  }, [DepartmentName]);
 
   return (
     <div className="flex">
@@ -75,18 +75,19 @@ const Emplist = () => {
             <h1>Department Name {":"} </h1>
           </b>
           <select
-                name="DepartmentName"
-                onChange={(e) => {
-                  SetDepartmentName(e.target.value);
-                }}
-                className="rounded-[5px] w-[80%]"
-              >
-                <option value="">Select Department</option>
-                {Departments.map((dept, index) => (
-                  <option value={dept.DepartmentName} key={index}>{dept.DepartmentName}</option>
-                ))}
-                               
-              </select>
+            name="DepartmentName"
+            onChange={(e) => {
+              SetDepartmentName(e.target.value);
+            }}
+            className="rounded-[5px] w-[80%]"
+          >
+            <option value="">Select Department</option>
+            {Departments.map((dept, index) => (
+              <option value={dept.DepartmentName} key={index}>
+                {dept.DepartmentName}
+              </option>
+            ))}
+          </select>
           <button
             className="h-[75%]  bg-blue-500 ml-[10%] p-[2%] text-white flex items-center justify-center rounded"
             onClick={fetchDeptId}
@@ -118,15 +119,13 @@ const Emplist = () => {
                 <td className="border py-2 px-4">{employee.Phone}</td>
                 <td className="border py-2 px-4">{employee.Email}</td>
                 <td className="border py-2 px-4">
-                  <button
-                   
+                  <Link
+                    to={"/ModifyEmp/" + employee._id}
                     className="bg-blue-500 text-white px-4 py-2 mr-2 rounded-lg"
                   >
                     Modify
-                  </button>
-                  <button
-                    className="bg-red-500 text-white px-4 py-2 rounded-lg"
-                  >
+                  </Link>
+                  <button className="bg-red-500 text-white px-4 py-2 rounded-lg">
                     Delete
                   </button>
                 </td>
