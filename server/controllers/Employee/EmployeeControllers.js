@@ -1,5 +1,6 @@
-const EmployeeCreateService = require("../../services/Employee/EmployeeCreateService");
 const Employee = require("../../models/Employee");
+
+const EmployeeCreateService = require("../../services/Employee/EmployeeCreateService");
 const EmployeeListService = require("../../services/Employee/EmployeeListService");
 
 /**
