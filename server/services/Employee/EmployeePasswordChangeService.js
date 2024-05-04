@@ -32,7 +32,7 @@ const { HashPassword, VerifyPassword } = require("../../utilities/BcryptHelper")
 
 const EmployeePasswordChangeService = async (Request, DataModel) => {
     const Email = Request.Email;
-    console.log("Email:", Email);
+    // console.log("Email:", Email);
     let { PreviousPassword, NewPassword } = Request;
 
     // Verify if PreviousPassword matches the stored password

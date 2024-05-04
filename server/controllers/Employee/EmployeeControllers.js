@@ -1,4 +1,5 @@
 const Employee = require("../../models/Employee");
+const Otp = require("../../models/Otp");
 
 const EmployeeCreateService = require("../../services/Employee/EmployeeCreateService");
 const EmployeeListService = require("../../services/Employee/EmployeeListService");
@@ -7,6 +8,10 @@ const DetailsService = require("../../services/Common/DetailsService");
 const UpdateService = require("../../services/Common/UpdateService");
 const EmployeeUpdateService = require("../../services/Employee/EmployeeUpdateService");
 const EmployeePasswordChangeService = require("../../services/Employee/EmployeePasswordChangeService");
+const DeleteService = require("../../services/Common/DeleteService");
+const SendRecoveryOtpService = require("../../services/Employee/SendRecoveryOtpService");
+const VerifyRecoveryOtpService = require("../../services/Employee/VerifyRecoveryOtpService");
+const RecoveryResetPassService = require("../../services/Employee/RecoveryResetPassService");
 
 /**
  * @desc Employee Create
@@ -89,7 +94,7 @@ const EmployeeDetails = async (req, res, next) => {
 /**
  * @desc Employee Change Password
  * @access private
- * @route /api/v1/Employee/EmployeeChangePassword
+ * @route /api/v1/Employee/EmployeeChangePassword/:id
  * @methud PUT
  */
 
@@ -102,10 +107,80 @@ const EmployeeChangePassword = async (req, res, next) => {
   }
 };
 
+
+/**
+ * @desc Employee Delete
+ * @access private
+ * @route /api/v1/Employee/EmployeeDelete/:id
+ * @methud DELETE
+ */
+
+const EmployeeDelete = async (req, res, next) => {
+  try {
+    const result = await DeleteService(req, Employee);
+    res.json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * @desc Send Recovery Otp
+ * @access public
+ * @route /api/v1/Employee/SendRecoveryOtp/:Email
+ * @methud GET
+ */
+
+const SendRecoveryOtp = async (req, res, next) => {
+  try {
+    const result = await SendRecoveryOtpService(req, Employee, Otp);
+    res.json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * @desc Verify Recovery Otp
+ * @access public
+ * @route /api/v1/Employee/VerifyRecoveryOtp/:/Email/:OtpCode
+ * @methud GET
+ */
+
+const VerifyRecoveryOtp = async (req, res, next) => {
+  try {
+    const result = await VerifyRecoveryOtpService(req, Otp);
+    res.json(result);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
+
+/**
+ * @desc Recovery Reset Password
+ * @access public
+ * @route /api/v1/Employee/RecoveryResetPass/:Email/:OtpCode
+ * @methud POST
+ */
+
+const RecoveryResetPass = async (req, res, next) => {
+  try {
+    const result = await RecoveryResetPassService(req, Employee, Otp);
+    res.json(result);
+  } catch (error) {
+    next(error);
+  }
+};
 module.exports = { 
     EmployeeCreate,
     EmployeeList,
     EmployeeDetails,
     EmployeeUpdate,
     EmployeeChangePassword,
+    EmployeeDelete,
+    SendRecoveryOtp,
+    VerifyRecoveryOtp,
+    RecoveryResetPass,
  };

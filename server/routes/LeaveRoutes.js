@@ -8,4 +8,9 @@ LeaveRoutes.post(
     LeaveControllers.LeaveCreate,
   );
 
+  //Leave List
+  LeaveRoutes.get(
+    "/LeaveList/:id",
+    LeaveControllers.LeaveList,
+  );
   module.exports = LeaveRoutes;

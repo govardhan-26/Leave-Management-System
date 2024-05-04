@@ -9,6 +9,7 @@ const DropDownService = require("../../services/Common/DropDownService");
 const UpdateService = require("../../services/Common/UpdateService");
 const DeleteService = require("../../services/Common/DeleteService");
 const DetailsService = require("../../services/Common/DetailsService");
+const LeaveListService = require("../../services/Common/LeaveListService");
 
 /**
  * @desc Leave Create
@@ -26,7 +27,24 @@ const LeaveCreate = async (req, res, next) => {
     }
   };
 
+
+  /**
+ * @desc LeaveList
+ * @access private
+ * @route /api/v1/Leave/LeaveList/:id
+ * @methud GET
+ */
+
+  const LeaveList = async (req, res, next) => {
+    try {
+      const leaveList = await LeaveListService(req);
+      res.json(leaveList);
+    } catch (error) {
+      next(error);
+    }
+  };
   
   module.exports = {
     LeaveCreate,
+    LeaveList,
   }

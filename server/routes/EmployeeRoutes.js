@@ -32,5 +32,28 @@ EmployeeRoutes.put(
   EmployeeControllers.EmployeeChangePassword,
 );
 
+//Delete Employee
+EmployeeRoutes.delete(
+  "/EmployeeDelete/:id",
+  EmployeeControllers.EmployeeDelete,
+);
+
+//Send Recovery Otp
+EmployeeRoutes.get(
+  "/SendRecoveryOtp/:Email",
+  EmployeeControllers.SendRecoveryOtp,
+);
+
+//Verify Recovery Otp
+EmployeeRoutes.get(
+  "/VerifyRecoveryOtp/:Email/:OtpCode",
+  EmployeeControllers.VerifyRecoveryOtp,
+);
+
+//Recovery Reset Pass
+EmployeeRoutes.post(
+  "/RecoveryResetPass/:Email/:OtpCode",
+  EmployeeControllers.RecoveryResetPass,
+);
 
 module.exports = EmployeeRoutes;
