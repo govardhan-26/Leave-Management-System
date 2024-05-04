@@ -26,4 +26,4 @@ const DetailsService = async (Request, DataModel) => {
 module.exports = DetailsService;
 
 
-module.exports = DetailsService;
+

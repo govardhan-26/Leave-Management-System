@@ -13,4 +13,17 @@ EmployeeRoutes.get(
     "/EmployeeList/:DepartmentId",
     EmployeeControllers.EmployeeList,
   );
+
+//Employee Deatils(Profile)
+EmployeeRoutes.get(
+  "/EmployeeDetails/:id",
+  EmployeeControllers.EmployeeDetails,
+);
+
+//Employee Update(Profile update)
+EmployeeRoutes.patch(
+  "/EmployeeUpdate/:id",
+  EmployeeControllers.EmployeeUpdate,
+);
+
 module.exports = EmployeeRoutes;
