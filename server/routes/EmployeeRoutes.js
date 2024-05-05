@@ -56,4 +56,18 @@ EmployeeRoutes.post(
   EmployeeControllers.RecoveryResetPass,
 );
 
+//DepartmentHeads
+EmployeeRoutes.get(
+  "/DepartmentHeads",
+  EmployeeControllers.DepartmentHeads,
+);
+
+//DepartmentHeads
+EmployeeRoutes.get(
+  "/DepartmentHead",
+  EmployeeControllers.DepartmentHead,
+);
+
+
+
 module.exports = EmployeeRoutes;

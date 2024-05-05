@@ -12,7 +12,7 @@ const DeleteService = require("../../services/Common/DeleteService");
 const SendRecoveryOtpService = require("../../services/Employee/SendRecoveryOtpService");
 const VerifyRecoveryOtpService = require("../../services/Employee/VerifyRecoveryOtpService");
 const RecoveryResetPassService = require("../../services/Employee/RecoveryResetPassService");
-
+const ListQueryJoinService = require("../../services/Common/ListQueryJoinServie");
 /**
  * @desc Employee Create
  * @access private
@@ -173,6 +173,109 @@ const RecoveryResetPass = async (req, res, next) => {
     next(error);
   }
 };
+
+/**
+ * @desc DepartmentHeads
+ * @access private
+ * @route /api/v1/Employee/DepartmentHeads
+ * @methud GET
+ */
+
+const DepartmentHeads = async (req, res, next) => {
+  try {
+    const MatchQuery = {
+      $match: {
+        Roles: "Role_B",
+      },
+    };
+
+    const JoinStage = {
+      $lookup: {
+        from: "departments",
+        localField: "DepartmentId",
+        foreignField: "_id",
+        as: "Department",
+      },
+    };
+
+    const projection = {
+      $project: {
+        Department: {
+          $first: "$Department.DepartmentShortName",
+        },
+        FirstName: 1,
+        LastName: 1,
+        Email: 1,
+        Image: 1,
+      },
+    };
+
+    const result = await ListQueryJoinService(
+      req,
+      Employee,
+      MatchQuery,
+      JoinStage,
+      projection,
+    );
+    res.json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+/**
+ * @desc A specific Department Head
+ * @access private
+ * @route /api/v1/Employee/DepartmentHead
+ * @method GET
+ */
+
+const DepartmentHead = async (req, res, next) => {
+  try {
+    const departmentShortName = req.body.DepartmentShortName; // Assuming the department short name is passed in the request body
+    const MatchQuery = {
+      $match: {
+        Roles: "Role_B", // Assuming "Role_B" is the role of department heads
+        "Department.DepartmentShortName": departmentShortName // Filter by department short name
+      },
+    };
+
+    const JoinStage = {
+      $lookup: {
+        from: "departments",
+        localField: "DepartmentId",
+        foreignField: "_id",
+        as: "Department",
+      },
+    };
+
+    const projection = {
+      $project: {
+        Department: {
+          $first: "$Department.DepartmentShortName",
+        },
+        FirstName: 1,
+        LastName: 1,
+        Email: 1,
+        Image: 1,
+      },
+    };
+
+    const result = await ListQueryJoinService(
+      req,
+      Employee,
+      MatchQuery,
+      JoinStage,
+      projection,
+    );
+    res.json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
+
 module.exports = { 
     EmployeeCreate,
     EmployeeList,
@@ -183,4 +286,6 @@ module.exports = {
     SendRecoveryOtp,
     VerifyRecoveryOtp,
     RecoveryResetPass,
+    DepartmentHeads,
+    DepartmentHead,
  };
