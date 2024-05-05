@@ -10,6 +10,7 @@ const ModifyEmp = () => {
   const [DepartmentID, setDepartmentID] = useState("");
   const [DepartmentName, setDepartmentName] = useState("");
   const [Departments, setDepartments] = useState([]);
+  const [Password, setPassword] = useState("");
 
   const [employeeDetails, setEmployeeDetails] = useState({
     DepartmentId: "",
@@ -27,34 +28,59 @@ const ModifyEmp = () => {
 
   const { id } = useParams();
 
-  useEffect(() => {
-    async function GetEmployee() {
-      try {
-        const response = await fetch(
-          "http://localhost:8080/api/v1/Department/DepartmentList",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+  console.log(employeeDetails)
 
-        if (!response.ok) {
-          throw new Error("Failed to submit request");
+  async function GetEmployee() {
+    try {
+      const response = await fetch(
+        "http://localhost:8080/api/v1/Employee//EmployeeDetails/" + id,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-        const data = await response.json(); // Parse response body as JSON
+      );
 
-        setDepartments(data); // Update departments state with the fetched data
-      } catch (error) {
-        console.error("Error submitting request:", error);
+      if (!response.ok) {
+        throw new Error("Failed to submit request");
       }
+      const data = await response.json(); // Parse response body as JSON
+      setEmployeeDetails(data);
+    } catch (error) {
+      console.error("Error submitting request:", error);
     }
-    GetDeptlist();
-  }, )
-  
+  }
 
-  console.log(id);
+  useEffect(() => {
+    GetEmployee();
+   
+  }, [])
+  
+  async function ModifyEmployee() {
+    try {
+      const response = await fetch(
+        "http://localhost:8080/api/v1/Employee/EmployeeUpdate/" + id,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body : JSON.stringify(employeeDetails),
+        }
+      );
+
+      
+    } catch (error) {
+      console.error("Error submitting request:", error);
+    }
+  }
+
+  useEffect(() => {
+    GetEmployee();
+   
+  }, [])
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -125,31 +151,8 @@ const ModifyEmp = () => {
   const submitRequest = async (event) => {
     event.preventDefault();
 
-    try {
-      // fetchDeptId();
-      console.log(employeeDetails);
-
-      const response = await fetch(
-        "http://localhost:8080/api/v1/Employee/EmployeeCreate",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(employeeDetails),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to submit request");
-      }
-
-      // Assuming the API returns some data, you can handle it here
-      // const data = await response.json();
-      // console.log('Request submitted successfully:', data);
-    } catch (error) {
-      console.error("Error submitting request:", error);
-    }
+    ModifyEmployee();
+    
   };
 
   return (
@@ -160,6 +163,7 @@ const ModifyEmp = () => {
           onSubmit={submitRequest}
           className="flex flex-col justify-evenly w-[100%] h-[100%]"
         >
+
           <div className="flex text-left items-center justify-between ">
             <div className="flex mt-[30px] items-center justify-start w-[45%]">
               <h1 className="mr-[10px]">
@@ -284,7 +288,6 @@ const ModifyEmp = () => {
               <input
                 type="password"
                 name="Password"
-                value={employeeDetails.Password}
                 onChange={handleInputChange}
                 className="rounded-[5px] w-[80%]"
               />
@@ -314,7 +317,7 @@ const ModifyEmp = () => {
             </div>
           </div>
 
-          <div className="flex text-left items-center justify-between">
+          {/* <div className="flex text-left items-center justify-between">
             <div className="flex  items-center justify-start w-[80%]">
               <h1 className="mr-[20px]">
                 <b>Image (max 200KB):</b>
@@ -327,14 +330,14 @@ const ModifyEmp = () => {
                 className="rounded-[5px] w-[30%] border border-black cursor-pointer"
               />
             </div>
-          </div>
+          </div> */}
 
           <div className="flex mt-[30px] items-center justify-end">
             <button
               type="submit"
               className="text-white bg-blue-500 bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
             >
-              Add Employee
+              Update
             </button>
           </div>
         </form>

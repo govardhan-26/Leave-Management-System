@@ -40,10 +40,6 @@ const handleCheckboxChange = () => {
         },
         body: JSON.stringify(departmentDetails),
       });
-  
-      if (!response.ok) {
-        throw new Error('Failed to submit request');
-      }
 
     } catch (error) {
       console.error('Error submitting request:', error);
