@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-const Employee = require('./Employee');
+// const Employee = require('./Employee');
 
 const LeaveSchema = new Schema(
     {
@@ -10,7 +10,7 @@ const LeaveSchema = new Schema(
         },
         LeaveType: {
             type: Schema.Types.ObjectId,
-            ref: "Leavetype",
+            ref: "LeaveType",
             required: true,
         },
         LeaveDetails: {

@@ -10,7 +10,7 @@ LeaveRoutes.post(
 
   //Leave List
   LeaveRoutes.get(
-    "/LeaveList/:id",
+     "/LeaveList/:EmployeeId",
     LeaveControllers.LeaveList,
   );
   module.exports = LeaveRoutes;

@@ -31,18 +31,20 @@ const LeaveCreate = async (req, res, next) => {
   /**
  * @desc LeaveList
  * @access private
- * @route /api/v1/Leave/LeaveList/:id
+ * @route /api/v1/Leave/LeaveList/:EmployeeId
  * @methud GET
  */
 
-  const LeaveList = async (req, res, next) => {
-    try {
-      const leaveList = await LeaveListService(req);
-      res.json(leaveList);
-    } catch (error) {
-      next(error);
-    }
-  };
+const LeaveList = async (req, res, next) => {
+  try {
+    const EmployeeId = req.params.EmployeeId;
+    console.log(EmployeeId); // Assuming employeeId is passed in the URL params
+    const leaveList = await LeaveListService(EmployeeId);
+    res.json(leaveList);
+  } catch (error) {
+    next(error);
+  }
+};
   
   module.exports = {
     LeaveCreate,
