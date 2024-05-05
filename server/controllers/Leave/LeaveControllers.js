@@ -45,8 +45,60 @@ const LeaveList = async (req, res, next) => {
     next(error);
   }
 };
+
+/**
+ * @desc Leave Details
+ * @access private
+ * @route /api/v1/Leave/LeaveDetails/:id
+ * @methud GET
+ */
+
+const LeaveDetails = async (req, res, next) => {
+  try {
+    const result = await DetailsService(req, LeaveModel);
+    res.json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+/**
+ * @desc Leave  Delete
+ * @access private
+ * @route /api/v1/Leave/LeaveDelete/:id
+ * @methud DELETE
+ */
+
+const LeaveDelete = async (req, res, next) => {
+  try {
+    const result = await DeleteService(req, LeaveModel);
+    res.json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * @desc Leave Update
+ * @access private
+ * @route /api/v1/Leave/LeaveUpdate/:id
+ * @methud PATCH
+ */
+
+const LeaveUpdate = async (req, res, next) => {
+  try {
+    const result = await UpdateService(req, LeaveModel);
+    res.json(result);
+  } catch (error) {
+    next(error);
+  }
+};
   
   module.exports = {
     LeaveCreate,
     LeaveList,
+    LeaveDetails,
+    LeaveDelete,
+    LeaveUpdate,
   }
