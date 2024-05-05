@@ -10,6 +10,7 @@ const UpdateService = require("../../services/Common/UpdateService");
 const DeleteService = require("../../services/Common/DeleteService");
 const DetailsService = require("../../services/Common/DetailsService");
 const LeaveListService = require("../../services/Common/LeaveListService");
+const LeaveListHodService = require('../../services/Common/LeaveListHodService');
 
 /**
  * @desc Leave Create
@@ -95,10 +96,47 @@ const LeaveUpdate = async (req, res, next) => {
   }
 };
   
+/**
+ * @desc Leave List Hod
+ * @access private
+ * @route /api/v1/Leave/LeaveListHod
+ * @methud Post
+ */
+// const LeaveListHod = async (req, res, next) => {
+//   try {
+//     const departmentShortName = req.body.DepartmentShortName; // Assuming departmentShortName is passed in the request body
+//     console.log(departmentShortName);
+//     const leaveList = await LeaveListHodService(departmentShortName);
+
+//     res.json(leaveList);
+//   } catch (error) {
+//     next(error);
+//   }
+// };
+
+//Body ={ DepartmentShortname and Role_BStatus}
+const LeaveListHod = async (req, res, next) => {
+  try {
+    const departmentShortName = req.body.DepartmentShortName;
+    const status = req.body.Role_BStatus; // Extract departmentShortName and status from the request body
+
+    if (!departmentShortName || !status) {
+      throw new Error("DepartmentShortName and status are required in the request body");
+    }
+
+    const leaveList = await LeaveListHodService(departmentShortName, status);
+
+    res.json(leaveList);
+  } catch (error) {
+    next(error);
+  }
+};
+
   module.exports = {
     LeaveCreate,
     LeaveList,
     LeaveDetails,
     LeaveDelete,
     LeaveUpdate,
+    LeaveListHod,
   }

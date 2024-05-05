@@ -35,4 +35,12 @@ LeaveRoutes.patch(
   "/LeaveUpdate/:id",
   LeaveControllers.LeaveUpdate,
 );
+
+//Leave List Hod
+LeaveRoutes.post(
+  "/LeaveListHod",
+  LeaveControllers.LeaveListHod,
+);
+
+
   module.exports = LeaveRoutes;
