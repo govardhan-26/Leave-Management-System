@@ -5,8 +5,12 @@ import { SlCalender } from "react-icons/sl";
 import { FcLeave } from "react-icons/fc";
 import { MdOutlinePendingActions } from "react-icons/md";
 import { CiLogout } from "react-icons/ci";
+import { useNavigate } from 'react-router-dom';
+
+
 
 const SidebarComponent = () => {
+  const navigate = useNavigate();
   return (
     <div className='md:flex h-[100vh] md:w-[fit-content] items-center border border-solid border-grey-500 w-[40px]  '>
       <div className='md:hidden flex flex-col space-y-10 mt-[30px] ml-[5px]'>
@@ -31,8 +35,14 @@ const SidebarComponent = () => {
           <Sidebar.Item href="application" icon={SiReacthookform}>
             Leave Application
           </Sidebar.Item>
-          <Sidebar.Item href="/Login" icon={CiLogout}>
-            Logout
+          <Sidebar.Item icon={CiLogout}>
+            <div onClick={()=>{ 
+              navigate("/");
+              localStorage.removeItem("token");
+              localStorage.removeItem("UserDetails");
+             }}>
+              Logout
+            </div>
           </Sidebar.Item>
         </Sidebar.ItemGroup>
       </Sidebar.Items>

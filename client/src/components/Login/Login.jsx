@@ -15,11 +15,15 @@ const Login = () => {
           body: JSON.stringify({ Email: email, Password: password }),
         },
       );
+      const data = await response.json();
       setPassword("");
       setEmail("");
       if (!response.ok) {
         throw new Error("Failed to submit request");
       } else {
+        localStorage.setItem('token', data.AccessToken)
+        localStorage.setItem('UserDetails', JSON.stringify(data.UserDetails))
+
         navigate("/");
       }
     } catch (error) {
