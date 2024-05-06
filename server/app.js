@@ -23,7 +23,7 @@ const connectDB = require("./config/db");
 // const routes = require('./routes');
 
 
-dotenv.config({ path: path.join(__dirname, "../.env") });// for loading environment  variables  from .env file.
+dotenv.config();// for loading environment  variables  from .env file.
 const { DefaultErrorHandler,NotFoundError,} = require("./helpers/ErrorHandler");
 
 const PORT = process.env.PORT || 8080;
