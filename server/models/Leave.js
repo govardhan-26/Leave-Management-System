@@ -8,6 +8,7 @@ const LeaveSchema = new Schema(
             ref: "Employee",
             required: true,
         },
+        
         LeaveType: {
             type: Schema.Types.ObjectId,
             ref: "LeaveType",

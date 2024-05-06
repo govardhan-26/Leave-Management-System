@@ -2,7 +2,7 @@ const express = require("express");
 const EmployeeRoutes = express.Router();
 
 const EmployeeControllers = require("../controllers/Employee/EmployeeControllers");
-
+const CheckAuthLogin = require("../middlewares/CheckAuthLogin");
 //Define Route to create an employee record.
 EmployeeRoutes.post(
     "/EmployeeCreate",
@@ -16,7 +16,7 @@ EmployeeRoutes.get(
 
 //Employee Deatils(Profile)
 EmployeeRoutes.get(
-  "/EmployeeDetails/:id",
+  "/EmployeeDetails/:id",CheckAuthLogin.CheckEmployeeAuth,
   EmployeeControllers.EmployeeDetails,
 );
 

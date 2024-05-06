@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 const DecodedToken = async (Token)=>{
-     return await jwt.verify(Token, process.env.SECRET_KEY);
+     const a =  await jwt.verify(Token, process.env.JWT_SECRETE_KEY);
+     return a;
 };
 module.exports= DecodedToken;

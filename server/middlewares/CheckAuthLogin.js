@@ -8,20 +8,25 @@ const Employee = require("../models/Employee");
 const CheckEmployeeAuth = async (req,res,next)=>{
     try{
         const {authorization } = req.headers;
+        
         let token = authorization.split(" ")[1];
         const  decodedData = await DecodedToken(token);
+        // const employee = await Employee.aggregate([
+        //     {
+        //         $match: { _id: ObjectId(decodedData.id) },
+        //     },
 
-        const employee = await Employee.aggregate([
-            {
-                $match: { _id: ObjectId(decodedData.id) },
-            },
-
-        ]);
-
-        req.Email = employee[0].Email;
-        req.EmployeeId = employee[0]._id;
-        req.Password = employee[0].Password;
-        if(!employee.length>0)
+        // ]);
+        // console.log(decodedData.id)
+        const employee = await Employee.findOne({ _id:decodedData.id });
+        // if(!admin && employee._id!=req.params.id){
+        //     req.params.id = employee.id;
+        // }
+        req.Email = employee.Email;
+        req.EmployeeId = employee._id;
+        req.Password = employee.Password;
+        console.log(req)
+        if(employee==undefined)
         {
             throw CreateError("Invalid Credentials", 401);
         }

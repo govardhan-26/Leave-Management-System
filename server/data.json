@@ -1,14 +1,18 @@
-"Roles": "Role_A",
+
+
+{
+    "Roles": "Role_A",
 "DepartmentId": "65bf317f2f6a72cc0c566dad",
-"FirstName": "Govardhan",
+"FirstName": "Rajesh",
 "LastName": "Naidu",
 "Gender": "Male",
-"DateOfBirth": "01/01/2002",
+"DateOfBirth": "01/01/2004",
 "Address": "Gajuwaka,vishakhapatnam",
-"Phone": 9784567200,
-"Email": "govardhan01@gmail.com",
-"Password": "Password@24"
+"Phone": 9807865745,
+"Email": "govardhan789@gmail.com",
+"Password": "Password#24"
 
+}
 
 department info
 _id
