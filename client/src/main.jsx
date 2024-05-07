@@ -19,9 +19,14 @@ import Emplist from "./components/Admin/Emplist.jsx";
 import AdminDashboard from "./components/Admin/AdminDashboard.jsx";
 import ModifyEmp from "./components/Admin/ModifyEmp.jsx";
 import ProtectedRoute from "./components/AuthProvider.jsx";
+import { RecoilRoot } from "recoil";
+
+import { Toaster } from "sonner";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
+    <RecoilRoot>
+
     <Flowbite>
       <BrowserRouter>
         <Routes>
@@ -134,5 +139,15 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         </Routes>
       </BrowserRouter>
     </Flowbite>
+    <Toaster
+          toastOptions={{
+            className: "py-3",
+          }}
+          expand={true}
+          position="top-right"
+          richColors
+          closeButton
+        ></Toaster>
+    </RecoilRoot>
   </React.StrictMode>
 );
