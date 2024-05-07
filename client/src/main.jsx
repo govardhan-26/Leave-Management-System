@@ -22,6 +22,7 @@ import ProtectedRoute from "./components/AuthProvider.jsx";
 import { RecoilRoot } from "recoil";
 
 import { Toaster } from "sonner";
+import ChangePassword from "./components/ChangePassword.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -37,6 +38,14 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             element={
               <ProtectedRoute>
                 <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/changepassword"
+            element={
+              <ProtectedRoute>
+                <ChangePassword />
               </ProtectedRoute>
             }
           />

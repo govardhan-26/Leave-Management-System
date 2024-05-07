@@ -35,6 +35,9 @@ const SidebarComponent = () => {
           <Sidebar.Item href="application" icon={SiReacthookform}>
             Leave Application
           </Sidebar.Item>
+          <Sidebar.Item href="/changepassword" icon={CiLogout}>
+            Change Password
+          </Sidebar.Item>
           <Sidebar.Item icon={CiLogout}>
             <div onClick={()=>{ 
               navigate("/");
