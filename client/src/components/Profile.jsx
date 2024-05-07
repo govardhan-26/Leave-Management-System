@@ -145,7 +145,7 @@ const Profile = () => {
                 </select> */}
                 <h1>{position}</h1>
               </div>
-              <div className="flex w-[100%]  w-[100%] items-center">
+              <div className="flex w-[100%] items-center">
                 <label htmlFor="responsibility">Department : &nbsp;</label>
                 {/* <select
                   id="positions"
