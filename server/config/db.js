@@ -28,7 +28,7 @@ const connectDB = async () => {
     //   console.log("DATABASE_URL:", DATABASE_URL);
     //   console.log("DB_OPTIONS:", DB_OPTIONS);
   
-      await mongoose.connect('mongodb+srv://gowa:gowa@cluster0.ga43ixn.mongodb.net/');
+      await mongoose.connect('mongodb+srv://bgrnaidu:singa@clusterlms1.khgilio.mongodb.net/');
   
       // console.log(DB_OPTIONS.dbName + ' Database Connected Successfully...');
     } catch (error) {

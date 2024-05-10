@@ -41,9 +41,10 @@ const Leavetype = () => {
         },
         body: JSON.stringify(LeaveTypes),
       })
-      if(!response.ok){
-        console.log("Error Creating LeaveType")
+      if(response.ok){
+        response.success("LeaveType Created");
       }
+      
     }
     catch(error){
         console.error('Error submitting request:', error);      

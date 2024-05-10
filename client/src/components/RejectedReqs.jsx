@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SidebarComponent from "./SidebarComponent";
-import { toast } from "sonner";
 
-const LeaveReq = () => {
+const RejectedReqs = () => {
   const UserId = localStorage.getItem("userId");
   const managerId = localStorage.getItem("manager");
   const [LeaveRequests, SetLeaveRequests] = useState([]);
@@ -23,10 +22,6 @@ const LeaveReq = () => {
           }),
         }
       );
-      window.location.href = "/leavereq";
-      if (response.ok) {
-        toast.success('Leave Accepted')
-      }
     } catch (err) {
       console.error("Error Accepting Requests", err);
     }
@@ -48,10 +43,6 @@ const LeaveReq = () => {
           }),
         }
       );
-      window.location.href = "/leavereq";
-      if (response.ok) {
-        toast.success('Leave Rejected')
-      }
     } catch (err) {
       console.error("Error Accepting Requests", err);
     }
@@ -73,11 +64,6 @@ const LeaveReq = () => {
           }),
         }
       );
-      window.location.href = "/leavereq";
-      if (response.ok) {
-        toast.success('Leave Forwarded')
-      }
-
     } catch (err) {
       console.error("Error Accepting Requests", err);
     }
@@ -95,7 +81,7 @@ const LeaveReq = () => {
           },
           body: JSON.stringify({
             EmployeeId: UserId,
-            status: "all",
+            status: "rejected",
           }),
         }
       );
@@ -193,4 +179,4 @@ const LeaveReq = () => {
   );
 };
 
-export default LeaveReq;
+export default RejectedReqs;

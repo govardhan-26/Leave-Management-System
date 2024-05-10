@@ -23,6 +23,12 @@ import { RecoilRoot } from "recoil";
 
 import { Toaster } from "sonner";
 import ChangePassword from "./components/ChangePassword.jsx";
+import OTPInput from "./components/OTPInput.jsx";
+import PendingReq from "./components/PendingReq.jsx";
+import AcceptedReq from "./components/AcceptedReqs.jsx";
+import RejectedReq from "./components/RejectedReqs.jsx";
+
+
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -31,6 +37,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <Flowbite>
       <BrowserRouter>
         <Routes>
+          <Route path="/Otp" element={<OTPInput />} />
           <Route path="/" element={<App />} />
           <Route path="/login" element={<Login />} />
           <Route
@@ -38,6 +45,30 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             element={
               <ProtectedRoute>
                 <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/approvedreq"
+            element={
+              <ProtectedRoute>
+                <AcceptedReq />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/pendingreq"
+            element={
+              <ProtectedRoute>
+                <PendingReq />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/rejectedreq"
+            element={
+              <ProtectedRoute>
+                <RejectedReq />
               </ProtectedRoute>
             }
           />
@@ -84,65 +115,49 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route
             path="/admin"
             element={
-              <ProtectedRoute>
                 <AdminDashboard />
-              </ProtectedRoute>
             }
           />
           <Route
             path="/admin/createdept"
             element={
-              <ProtectedRoute>
                 <Createdept />
-              </ProtectedRoute>
             }
           />
           <Route
             path="/admin/createdeptlist"
             element={
-              <ProtectedRoute>
                 <Deptlist />
-              </ProtectedRoute>
             }
           />
           <Route
             path="/admin/Leavetype"
             element={
-              <ProtectedRoute>
                 <Leavetype />
-              </ProtectedRoute>
             }
           />
           <Route
             path="/admin/Leavetypelist"
             element={
-              <ProtectedRoute>
                 <Leavelist />
-              </ProtectedRoute>
             }
           />
           <Route
             path="/admin/Employee"
             element={
-              <ProtectedRoute>
                 <CreateEmp />
-              </ProtectedRoute>
             }
           />
           <Route
             path="/admin/Employeelist"
             element={
-              <ProtectedRoute>
                 <Emplist />
-              </ProtectedRoute>
             }
           />
           <Route
             path="/ModifyEmp/:id"
             element={
-              <ProtectedRoute>
                 <ModifyEmp />
-              </ProtectedRoute>
             }
           />
         </Routes>

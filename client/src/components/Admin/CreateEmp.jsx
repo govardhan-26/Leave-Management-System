@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
 import SidebarComponent from "../SidebarComponent";
 import AdminSidebar from "./AdminSidebar";
+import { toast } from "sonner";
 
 const CreateEmp = () => {
   const [isActive, setIsActive] = useState(true);
   const [DepartmentID, setDepartmentID] = useState("");
   const [DepartmentName, setDepartmentName] = useState('');
   const [Departments, setDepartments] = useState([]);
-
+  const [Role, setRole] = useState("");
+  const [Managers, setManagers] = useState([]);
+  const [managerName,setManagerName]= useState("");
+  const [manId,setManId]= useState("")
   const [employeeDetails, setEmployeeDetails] = useState({
     DepartmentId: "",
     FirstName: "",
@@ -16,12 +20,13 @@ const CreateEmp = () => {
     Gender: "",
     Phone: "",
     Address: "",
-    // DepartmentName: "",
+    Manager_Id :null,
     Roles: "",
     Email: "",
     Password: "",
     Image: "",
   });
+  
 
   const handleCheckboxChange = () => {
     setIsActive(!isActive);
@@ -34,6 +39,41 @@ const CreateEmp = () => {
       [name]: value,
     });
   };
+
+
+  const GetManagers = async () =>{
+    try{
+      let A = " ";
+      if(Role == "Role_A"){
+        A = "Role_B";
+      }
+      else if(Role == "Role_B"){
+        A = "Role_C";
+      }
+      else if(Role == "Role_C"){
+        A = "Role_D";
+      }
+      const response = await fetch('http://localhost:8080/api/v1/Employee/ManagerSelectionController', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body : JSON.stringify({departmentId : DepartmentID,role : A}),
+        });
+        let data= await response.json()
+        if(response.ok){
+          setManagers(data?.employees);
+        }
+    }
+    catch(err){
+      console.error("Error Getting Managers", err)
+    }
+  }
+  useEffect(() => {
+    if(Role && DepartmentID){
+      GetManagers();
+    }
+  }, [Role, DepartmentID])
 
   useEffect(() => {
     async function GetDeptlist(){
@@ -91,7 +131,6 @@ const CreateEmp = () => {
 
   useEffect(() => {
     fetchDeptId();
-    console.log(employeeDetails.DepartmentId);
   }, [DepartmentName])
 
   const submitRequest = async (event) => {
@@ -111,7 +150,9 @@ const CreateEmp = () => {
           body: JSON.stringify(employeeDetails),
         }
       );
-
+        if(response.ok){
+          toast.success("Employee Created");
+        }
       if (!response.ok) {
         throw new Error("Failed to submit request");
       }
@@ -224,7 +265,9 @@ const CreateEmp = () => {
               <select
                 name="Roles"
                 value={employeeDetails.Roles}
-                onChange={handleInputChange}
+                onChange={(e)=>{
+                  handleInputChange(e); 
+                  setRole(e.target.value)}}
                 className="rounded-[5px] w-[80%]"
               >
                 <option value="">Select Role</option>
@@ -263,7 +306,7 @@ const CreateEmp = () => {
             </div>
           </div>
 
-          <div className="w-[100%]">
+          <div className="w-[100%] flex">
             <div className="flex items-center justify-start w-[60%]">
               <h1 className="mr-[20px]">
                 <b>Department:</b>
@@ -277,6 +320,26 @@ const CreateEmp = () => {
                 <option value="">Select Department</option>
                 {Departments.map((dept, index) => (
                   <option value={dept.DepartmentName} key={index}>{dept.DepartmentName}</option>
+                ))}
+                               
+              </select>
+            </div>
+            <div className="flex items-center justify-start w-[60%]">
+              <h1 className="mr-[20px]">
+                <b>Manager:</b>
+              </h1>
+              <select
+                name="Manager"
+                value={managerName}
+                onChange={(e) => {setManagerName(e.target.value);
+                  setManId(e.target.value)
+                  setEmployeeDetails({...employeeDetails,Manager_Id:e.target.value})
+                }}
+                className="rounded-[5px] w-[80%]"
+              >
+                <option value="">Select Manager</option>
+                {Managers.map((Manager, index) => (
+                  <option value={Manager._id} key={index}>{Manager.FirstName + " " + Manager.LastName}</option>
                 ))}
                                
               </select>

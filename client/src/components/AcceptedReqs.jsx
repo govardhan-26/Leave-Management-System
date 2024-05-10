@@ -1,116 +1,116 @@
-import React, { useEffect, useState } from "react";
-import SidebarComponent from "./SidebarComponent";
-import { toast } from "sonner";
+import React, { useEffect, useState } from 'react'
+import SidebarComponent from './SidebarComponent'
+import { toast } from 'sonner'
 
-const LeaveReq = () => {
-  const UserId = localStorage.getItem("userId");
-  const managerId = localStorage.getItem("manager");
-  const [LeaveRequests, SetLeaveRequests] = useState([]);
+const AcceptedReq = () => {
+  const UserId = localStorage.getItem('userId')
+  const managerId = localStorage.getItem('manager')
+  const [LeaveRequests, SetLeaveRequests] = useState([])
 
   const AcceptReqs = async (ManagerId, LeaveId) => {
     try {
       const response = await fetch(
-        "http://localhost:8080/api/v1/Leave/LeaveUpdate/" + LeaveId,
+        'http://localhost:8080/api/v1/Leave/LeaveUpdate/' + LeaveId,
         {
-          method: "PATCH",
+          method: 'PATCH',
           headers: {
             // Authorization: "Bearer " + Usertoken,
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify({
             Superior_Id: ManagerId,
-            Manager_Status: "Approved",
+            Manager_Status: 'Approved',
           }),
-        }
-      );
-      window.location.href = "/leavereq";
+        },
+      )
       if (response.ok) {
         toast.success('Leave Accepted')
       }
     } catch (err) {
-      console.error("Error Accepting Requests", err);
+      toast.error('Error')
+      console.error('Error Accepting Requests', err)
     }
-  };
+  }
 
   const RejectReqs = async (ManagerId, LeaveId) => {
     try {
       const response = await fetch(
-        "http://localhost:8080/api/v1/Leave/LeaveUpdate/" + LeaveId,
+        'http://localhost:8080/api/v1/Leave/LeaveUpdate/' + LeaveId,
         {
-          method: "PATCH",
+          method: 'PATCH',
           headers: {
             // Authorization: "Bearer " + Usertoken,
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify({
             Superior_Id: ManagerId,
-            Manager_Status: "rejected",
+            Manager_Status: 'rejected',
           }),
-        }
-      );
-      window.location.href = "/leavereq";
+        },
+      )
       if (response.ok) {
         toast.success('Leave Rejected')
       }
     } catch (err) {
-      console.error("Error Accepting Requests", err);
+      toast.error('Error')
+      console.error('Error Accepting Requests', err)
     }
-  };
+  }
 
   const ForwardReqs = async (ManagerId, LeaveId) => {
     try {
       const response = await fetch(
-        "http://localhost:8080/api/v1/Leave/LeaveUpdate/" + LeaveId,
+        'http://localhost:8080/api/v1/Leave/LeaveUpdate/' + LeaveId,
         {
-          method: "PATCH",
+          method: 'PATCH',
           headers: {
             // Authorization: "Bearer " + Usertoken,
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify({
             Superior_Id: managerId,
-            Manager_Status: "pending",
+            Manager_Status: 'pending',
           }),
-        }
-      );
-      window.location.href = "/leavereq";
+        },
+      )
       if (response.ok) {
         toast.success('Leave Forwarded')
       }
-
     } catch (err) {
-      console.error("Error Accepting Requests", err);
+      toast.error('Error')
+      console.error('Error Accepting Requests', err)
     }
-  };
+  }
 
   const LeaveReqs = async () => {
     try {
       const response = await fetch(
-        "http://localhost:8080/api/v1/Leave/LeaveListManager",
+        'http://localhost:8080/api/v1/Leave/LeaveListManager',
         {
-          method: "POST",
+          method: 'POST',
           headers: {
             // Authorization: "Bearer " + Usertoken,
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify({
             EmployeeId: UserId,
-            status: "all",
+            status: 'Approved',
           }),
-        }
-      );
+        },
+      )
       if (response.ok) {
-        const data = await response.json();
-        SetLeaveRequests(data);
+        const data = await response.json()
+        SetLeaveRequests(data)
       }
     } catch (err) {
-      console.error("Error Getting Requests", err);
+      toast.error('Error')
+      console.error('Error Getting Requests', err)
     }
-  };
+  }
 
   useEffect(() => {
-    LeaveReqs();
-  }, []);
+    LeaveReqs()
+  }, [])
 
   return (
     <div className="flex">
@@ -138,12 +138,12 @@ const LeaveReq = () => {
               <tbody>
                 {LeaveRequests.map((leave, leaveid) => (
                   <tr
-                    className={leaveid % 2 === 0 ? "bg-white" : "bg-gray-100"}
+                    className={leaveid % 2 === 0 ? 'bg-white' : 'bg-gray-100'}
                     key={leaveid}
                   >
                     <td className="border border-gray-300 px-4 py-2">
                       {leave.EmployeeId.FirstName +
-                        " " +
+                        ' ' +
                         leave.EmployeeId.LastName}
                     </td>
                     <td className="border border-gray-300 px-4 py-2">
@@ -152,13 +152,13 @@ const LeaveReq = () => {
                     <td className="border border-gray-300 px-4 py-2">
                       {leave.NumOfDays}
                     </td>
-                    {leave.Manager_Status != "pending" ? (
+                    {leave.Manager_Status != 'pending' ? (
                       <td>{leave.Manager_Status}</td>
                     ) : (
                       <td className="border border-gray-300 px-4 py-2 flex justify-evenly">
                         <button
                           onClick={() => {
-                            AcceptReqs(leave.Manager_Id, leave._id);
+                            AcceptReqs(leave.Manager_Id, leave._id)
                           }}
                           className="border border-black rounded p-2 bg-green-300"
                         >
@@ -166,7 +166,7 @@ const LeaveReq = () => {
                         </button>
                         <button
                           onClick={() => {
-                            ForwardReqs(leave.Manager_Id, leave._id);
+                            ForwardReqs(leave.Manager_Id, leave._id)
                           }}
                           className="border border-black rounded p-2 bg-blue-200"
                         >
@@ -175,7 +175,7 @@ const LeaveReq = () => {
                         <button
                           className="border border-black rounded p-2 bg-red-500"
                           onClick={() => {
-                            RejectReqs(leave.Manager_Id, leave._id);
+                            RejectReqs(leave.Manager_Id, leave._id)
                           }}
                         >
                           Reject
@@ -190,7 +190,7 @@ const LeaveReq = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default LeaveReq;
+export default AcceptedReq

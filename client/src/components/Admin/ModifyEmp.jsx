@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import SidebarComponent from "../SidebarComponent";
 import AdminSidebar from "./AdminSidebar";
 import { useParams } from "react-router-dom";
+import { toast } from "sonner";
 
 
 
@@ -33,7 +34,7 @@ const ModifyEmp = () => {
   async function GetEmployee() {
     try {
       const response = await fetch(
-        "http://localhost:8080/api/v1/Employee//EmployeeDetails/" + id,
+        "http://localhost:8080/api/v1/Employee//EmployeeDetailsEmp/" + id,
         {
           method: "GET",
           headers: {
@@ -69,7 +70,9 @@ const ModifyEmp = () => {
           body : JSON.stringify(employeeDetails),
         }
       );
-
+        if(response.ok){
+          toast.success("Employee Details Updated");
+        }
       
     } catch (error) {
       console.error("Error submitting request:", error);
@@ -281,7 +284,7 @@ const ModifyEmp = () => {
                 className="rounded-[5px] w-[80%]"
               />
             </div>
-            <div className="flex  items-center justify-start w-[45%]">
+            {/* <div className="flex  items-center justify-start w-[45%]">
               <h1 className="mr-[20px]">
                 <b>Password:</b>
               </h1>
@@ -291,7 +294,7 @@ const ModifyEmp = () => {
                 onChange={handleInputChange}
                 className="rounded-[5px] w-[80%]"
               />
-            </div>
+            </div> */}
           </div>
 
           <div className="w-[100%]">

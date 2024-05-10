@@ -13,6 +13,7 @@ const SendRecoveryOtpService = require("../../services/Employee/SendRecoveryOtpS
 const VerifyRecoveryOtpService = require("../../services/Employee/VerifyRecoveryOtpService");
 const RecoveryResetPassService = require("../../services/Employee/RecoveryResetPassService");
 const ListQueryJoinService = require("../../services/Common/ListQueryJoinServie");
+const DetailsServiceEmp = require("../../services/Common/DetailsServiceEmp");
 /**
  * @desc Employee Create
  * @access private
@@ -20,13 +21,13 @@ const ListQueryJoinService = require("../../services/Common/ListQueryJoinServie"
  * @method POST
  */
 
-const EmployeeCreate = async (req,res,next)=>{
-    try{
-       const result = await  EmployeeCreateService(req,Employee);
-       res.json(result);
-    }catch(error){
-        next(error);
-    }
+const EmployeeCreate = async (req, res, next) => {
+  try {
+    const result = await EmployeeCreateService(req, Employee);
+    res.json(result);
+  } catch (error) {
+    next(error);
+  }
 };
 
 /**
@@ -37,15 +38,16 @@ const EmployeeCreate = async (req,res,next)=>{
  */
 
 const EmployeeList = async (req, res, next) => {
-    //   const deptId  = req.params;
-    const DepartmentId = req.params.DepartmentId;
-    console.log(DepartmentId);
-    try { const result = await EmployeeListService(req, Employee,  DepartmentId);
-        res.json(result);
-      } catch (error) { next(error);
-      }
-    };
-  
+  //   const deptId  = req.params;
+  const DepartmentId = req.params.DepartmentId;
+  console.log(DepartmentId);
+  try {
+    const result = await EmployeeListService(req, Employee, DepartmentId);
+    res.json(result);
+  } catch (error) {
+    next(error);
+  }
+};
 
 /**
  * @desc Employee Details
@@ -55,14 +57,23 @@ const EmployeeList = async (req, res, next) => {
  */
 
 const EmployeeDetails = async (req, res, next) => {
-    try {
-      const result = await DetailsService(req, Employee);
-      res.json(result);
-    } catch (error) {
-      next(error);
-    }
-  };
+  try {
+    const result = await DetailsService(req, Employee);
+    res.json(result);
+  } catch (error) {
+    next(error);
+  }
+};
 
+const EmployeeDetailsEmp = async (req, res, next) => {
+  try {
+    const employee_id = req.params.id;
+    const result = await DetailsServiceEmp(employee_id, Employee);
+    res.json(result);
+  } catch (error) {
+    next(error);
+  }
+};
 
 /**
  * @desc Update Employee
@@ -80,15 +91,19 @@ const EmployeeDetails = async (req, res, next) => {
 //     }
 //   };
 
-  const EmployeeUpdate = async (req, res, next) => {
-    try {
-      const EmployeeId = req.params.id;
-      const requestBody = req.body;
-      const result = await EmployeeUpdateService(EmployeeId, requestBody, Employee);
-      res.json(result);
-    } catch (error) {
-      next(error);
-    }
+const EmployeeUpdate = async (req, res, next) => {
+  try {
+    const EmployeeId = req.params.id;
+    const requestBody = req.body;
+    const result = await EmployeeUpdateService(
+      EmployeeId,
+      requestBody,
+      Employee,
+    );
+    res.json(result);
+  } catch (error) {
+    next(error);
+  }
 };
 
 /**
@@ -106,7 +121,6 @@ const EmployeeChangePassword = async (req, res, next) => {
     next(error);
   }
 };
-
 
 /**
  * @desc Employee Delete
@@ -156,7 +170,6 @@ const VerifyRecoveryOtp = async (req, res, next) => {
     next(error);
   }
 };
-
 
 /**
  * @desc Recovery Reset Password
@@ -223,7 +236,6 @@ const DepartmentHeads = async (req, res, next) => {
   }
 };
 
-
 /**
  * @desc A specific Department Head
  * @access private
@@ -237,7 +249,7 @@ const DepartmentHead = async (req, res, next) => {
     const MatchQuery = {
       $match: {
         Roles: "Role_B", // Assuming "Role_B" is the role of department heads
-        "Department.DepartmentShortName": departmentShortName // Filter by department short name
+        "Department.DepartmentShortName": departmentShortName, // Filter by department short name
       },
     };
 
@@ -276,16 +288,31 @@ const DepartmentHead = async (req, res, next) => {
 };
 
 
-module.exports = { 
-    EmployeeCreate,
-    EmployeeList,
-    EmployeeDetails,
-    EmployeeUpdate,
-    EmployeeChangePassword,
-    EmployeeDelete,
-    SendRecoveryOtp,
-    VerifyRecoveryOtp,
-    RecoveryResetPass,
-    DepartmentHeads,
-    DepartmentHead,
- };
+const ManagerSelectionService = require("../../services/Common/ManagerSelectionService");
+
+const ManagerSelectionController = async (req, res, next) => {
+  try {
+    const { departmentId, role } = req.body; // Use departmentId instead of department
+    const employees = await ManagerSelectionService(departmentId, role, Employee);
+    res.json({ employees });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = {
+  EmployeeCreate,
+  EmployeeList,
+  EmployeeDetails,
+  EmployeeUpdate,
+  EmployeeChangePassword,
+  EmployeeDelete,
+  SendRecoveryOtp,
+  VerifyRecoveryOtp,
+  RecoveryResetPass,
+  DepartmentHeads,
+  DepartmentHead,
+  ManagerSelectionController,
+  EmployeeDetailsEmp,
+};
+

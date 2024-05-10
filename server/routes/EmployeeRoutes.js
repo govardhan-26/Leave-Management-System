@@ -4,27 +4,28 @@ const EmployeeRoutes = express.Router();
 const EmployeeControllers = require("../controllers/Employee/EmployeeControllers");
 const CheckAuthLogin = require("../middlewares/CheckAuthLogin");
 //Define Route to create an employee record.
-EmployeeRoutes.post(
-    "/EmployeeCreate",
-    EmployeeControllers.EmployeeCreate);
+EmployeeRoutes.post("/EmployeeCreate", EmployeeControllers.EmployeeCreate);
 
 //Employee List
 EmployeeRoutes.get(
-    "/EmployeeList/:DepartmentId",
-    EmployeeControllers.EmployeeList,
-  );
+  "/EmployeeList/:DepartmentId",
+  EmployeeControllers.EmployeeList,
+);
 
 //Employee Deatils(Profile)
 EmployeeRoutes.get(
-  "/EmployeeDetails/:id",CheckAuthLogin.CheckEmployeeAuth,
+  "/EmployeeDetails/",
+  CheckAuthLogin.CheckEmployeeAuth,
   EmployeeControllers.EmployeeDetails,
 );
 
-//Employee Update(Profile update)
-EmployeeRoutes.patch(
-  "/EmployeeUpdate/:id",
-  EmployeeControllers.EmployeeUpdate,
+EmployeeRoutes.get(
+  "/EmployeeDetailsEmp/:id",
+  EmployeeControllers.EmployeeDetailsEmp,
 );
+
+//Employee Update(Profile update)
+EmployeeRoutes.patch("/EmployeeUpdate/:id", EmployeeControllers.EmployeeUpdate);
 
 //Employee Change Password
 EmployeeRoutes.put(
@@ -57,17 +58,15 @@ EmployeeRoutes.post(
 );
 
 //DepartmentHeads
-EmployeeRoutes.get(
-  "/DepartmentHeads",
-  EmployeeControllers.DepartmentHeads,
-);
+EmployeeRoutes.get("/DepartmentHeads", EmployeeControllers.DepartmentHeads);
 
 //DepartmentHeads
-EmployeeRoutes.get(
-  "/DepartmentHead",
-  EmployeeControllers.DepartmentHead,
+EmployeeRoutes.get("/DepartmentHead", EmployeeControllers.DepartmentHead);
+
+//Manager Selection
+EmployeeRoutes.post(
+  "/ManagerSelectionController",
+  EmployeeControllers.ManagerSelectionController,
 );
-
-
 
 module.exports = EmployeeRoutes;

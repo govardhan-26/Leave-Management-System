@@ -1,178 +1,144 @@
-const {ObjectId} = require('mongoose').Types;
+const { ObjectId } = require("mongoose").Types;
 
 const CreateError = require("../helpers/ErrorHandler");
 const DecodedToken = require("../utilities/DecodedToken");
 const Employee = require("../models/Employee");
 
 //Check Employee Auth
-const CheckEmployeeAuth = async (req,res,next)=>{
-    try{
-        const {authorization } = req.headers;
-        
-        let token = authorization.split(" ")[1];
-        const  decodedData = await DecodedToken(token);
-        // const employee = await Employee.aggregate([
-        //     {
-        //         $match: { _id: ObjectId(decodedData.id) },
-        //     },
-
-        // ]);
-        // console.log(decodedData.id)
-        const employee = await Employee.findOne({ _id:decodedData.id });
-        // if(!admin && employee._id!=req.params.id){
-        //     req.params.id = employee.id;
-        // }
-        req.Email = employee.Email;
-        req.EmployeeId = employee._id;
-        req.Password = employee.Password;
-        console.log(req)
-        if(employee==undefined)
-        {
-            throw CreateError("Invalid Credentials", 401);
-        }
-        next();
+const CheckEmployeeAuth = async (req, res, next) => {
+  try {
+    const { authorization } = req.headers;
+    let token = authorization.split(" ")[1];
+    const decodedData = await DecodedToken(token);
+    const employee = await Employee.findOne({ _id: decodedData.id });
+    req.Email = employee.Email;
+    req.EmployeeId = employee._id;
+    req.Password = employee.Password;
+    if (employee == undefined) {
+      throw CreateError("Invalid Credentials", 401);
     }
-
-    catch(error)
-    {
-        res.status(401).json({message: "invalid Credentials"});
-    }
+    next();
+  } catch (error) {
+    res.status(401).json({ message: "invalid Credentials" });
+  }
 };
 
-//Check Role_A Auth
-const CheckRole_AAuth = async (req,res,next)=>{
-    try {
+const CheckRole_AAuth = async (req, res, next) => {
+  try {
     const { Email } = req;
     const staff = await Employee.aggregate([
-        {
-            $match:{
-                $and: [{Email: Email},{Roles: "Role_A"}],
-            },
+      {
+        $match: {
+          $and: [{ Email: Email }, { Roles: "Role_A" }],
         },
+      },
     ]);
 
-    if(!staff.length > 0)
-    {
-        throw CreateError("invalid Credentials",401);
-
+    if (!staff.length > 0) {
+      throw CreateError("invalid Credentials", 401);
     }
     req.Roles = staff[0].Roles;
     next();
-    } catch(error)
-    {
-          res.status(401).json({message: "Invalid Credentials"});   
-    }
+  } catch (error) {
+    res.status(401).json({ message: "Invalid Credentials" });
+  }
 };
 
-//chech Role_B Auth
-
-const CheckRole_BAuth = async (req,res,next)=>{
-    try {
+const CheckRole_BAuth = async (req, res, next) => {
+  try {
     const { Email } = req;
     const staff = await Employee.aggregate([
-        {
-            $match:{
-                $and: [{Email: Email},{Roles: "Role_B"}],
-            },
+      {
+        $match: {
+          $and: [{ Email: Email }, { Roles: "Role_B" }],
         },
+      },
     ]);
 
-    if(!staff.length > 0)
-    {
-        throw CreateError("invalid Credentials",401);
-
+    if (!staff.length > 0) {
+      throw CreateError("invalid Credentials", 401);
     }
     req.Roles = staff[0].Roles;
     next();
-    } catch(error)
-    {
-          res.status(401).json({message: "Invalid Credentials"});   
-    }
+  } catch (error) {
+    res.status(401).json({ message: "Invalid Credentials" });
+  }
 };
 
 //chech Role_C Auth
 
-const CheckRole_CAuth = async (req,res,next)=>{
-    try {
+const CheckRole_CAuth = async (req, res, next) => {
+  try {
     const { Email } = req;
     const staff = await Employee.aggregate([
-        {
-            $match:{
-                $and: [{Email: Email},{Roles: "Role_C"}],
-            },
+      {
+        $match: {
+          $and: [{ Email: Email }, { Roles: "Role_C" }],
         },
+      },
     ]);
 
-    if(!staff.length > 0)
-    {
-        throw CreateError("invalid Credentials",401);
-
+    if (!staff.length > 0) {
+      throw CreateError("invalid Credentials", 401);
     }
     req.Roles = staff[0].Roles;
     next();
-    } catch(error)
-    {
-          res.status(401).json({message: "Invalid Credentials"});   
-    }
+  } catch (error) {
+    res.status(401).json({ message: "Invalid Credentials" });
+  }
 };
 
 //chech Role_D Auth
 
-const CheckRole_DAuth = async (req,res,next)=>{
-    try {
+const CheckRole_DAuth = async (req, res, next) => {
+  try {
     const { Email } = req;
     const staff = await Employee.aggregate([
-        {
-            $match:{
-                $and: [{Email: Email},{Roles: "Role_D"}],
-            },
+      {
+        $match: {
+          $and: [{ Email: Email }, { Roles: "Role_D" }],
         },
+      },
     ]);
 
-    if(!staff.length > 0)
-    {
-        throw CreateError("invalid Credentials",401);
-
+    if (!staff.length > 0) {
+      throw CreateError("invalid Credentials", 401);
     }
     req.Roles = staff[0].Roles;
     next();
-    } catch(error)
-    {
-          res.status(401).json({message: "Invalid Credentials"});   
-    }
+  } catch (error) {
+    res.status(401).json({ message: "Invalid Credentials" });
+  }
 };
 
 //chech Admin Auth
 
-const CheckAdminAuth = async (req,res,next)=>{
-    try {
+const CheckAdminAuth = async (req, res, next) => {
+  try {
     const { Email } = req;
     const staff = await Employee.aggregate([
-        {
-            $match:{
-                $and: [{Email: Email},{Roles: "Admin"}],
-            },
+      {
+        $match: {
+          $and: [{ Email: Email }, { Roles: "Admin" }],
         },
+      },
     ]);
 
-    if(!staff.length > 0)
-    {
-        throw CreateError("invalid Credentials",401);
-
+    if (!staff.length > 0) {
+      throw CreateError("invalid Credentials", 401);
     }
     req.Roles = staff[0].Roles;
     next();
-    } catch(error)
-    {
-          res.status(401).json({message: "Invalid Credentials"});   
-    }
+  } catch (error) {
+    res.status(401).json({ message: "Invalid Credentials" });
+  }
 };
 
 module.exports = {
-    CheckEmployeeAuth,
-    CheckRole_AAuth,
-    CheckRole_BAuth,
-    CheckRole_CAuth,
-    CheckRole_DAuth,
-    CheckAdminAuth,
-}
+  CheckEmployeeAuth,
+  CheckRole_AAuth,
+  CheckRole_BAuth,
+  CheckRole_CAuth,
+  CheckRole_DAuth,
+  CheckAdminAuth,
+};

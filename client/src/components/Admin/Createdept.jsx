@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import SidebarComponent from '../SidebarComponent';
 import AdminSidebar from './AdminSidebar';
+import { toast } from 'sonner';
 
 const Createdept = () => {
   const [isActive, setIsActive] = useState(true);
@@ -40,7 +41,7 @@ const handleCheckboxChange = () => {
         },
         body: JSON.stringify(departmentDetails),
       });
-
+      toast.success("Department Created");
     } catch (error) {
       console.error('Error submitting request:', error);
     }

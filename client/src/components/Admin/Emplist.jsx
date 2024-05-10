@@ -1,70 +1,91 @@
-import React, { useEffect, useState } from "react";
-import SidebarComponent from "../SidebarComponent";
-import AdminSidebar from "./AdminSidebar";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from 'react'
+import SidebarComponent from '../SidebarComponent'
+import AdminSidebar from './AdminSidebar'
+import { Link } from 'react-router-dom'
+import { toast } from 'sonner'
 
 const Emplist = () => {
-  const [employees, setEmployees] = useState([]);
-  const [DepartmentName, SetDepartmentName] = useState("");
-  const [DepartmentID, SetDepartmentID] = useState("");
-  const [Departments, setDepartments] = useState([]);
+  const [employees, setEmployees] = useState([])
+  const [DepartmentName, SetDepartmentName] = useState('')
+  const [DepartmentID, SetDepartmentID] = useState('')
+  const [Departments, setDepartments] = useState([])
 
   useEffect(() => {
     async function GetDeptlist() {
       try {
         const response = await fetch(
-          "http://localhost:8080/api/v1/Department/DepartmentList",
+          'http://localhost:8080/api/v1/Department/DepartmentList',
           {
-            method: "GET",
+            method: 'GET',
             headers: {
-              "Content-Type": "application/json",
+              'Content-Type': 'application/json',
             },
-          }
-        );
+          },
+        )
 
         if (!response.ok) {
-          throw new Error("Failed to submit request");
+          throw new Error('Failed to submit request')
         }
-        const data = await response.json(); // Parse response body as JSON
+        const data = await response.json() // Parse response body as JSON
 
-        setDepartments(data); // Update departments state with the fetched data
+        setDepartments(data) // Update departments state with the fetched data
       } catch (error) {
-        console.error("Error submitting request:", error);
+        console.error('Error submitting request:', error)
       }
     }
-    GetDeptlist();
-  }, []);
+    GetDeptlist()
+  }, [])
 
   const fetchDeptId = async () => {
     for (let i = 0; i < Departments.length; i++) {
       if (Departments[i].DepartmentName === DepartmentName) {
-        SetDepartmentID(Departments[i]._id);
+        SetDepartmentID(Departments[i]._id)
       }
     }
     try {
       const Emps = await fetch(
         `http://localhost:8080/api/v1/Employee/EmployeeList/${DepartmentID}`,
         {
-          method: "GET",
+          method: 'GET',
           headers: {
-            "content-Type": "application/json",
+            'content-Type': 'application/json',
           },
-        }
-      );
+        },
+      )
       if (!Emps.ok) {
-        throw new Error("Cant Fetch Depts");
+        throw new Error('Cant Fetch Depts')
       }
-      const emps = await Emps.json();
-      setEmployees(emps);
-      console.log(emps);
+      const emps = await Emps.json()
+      setEmployees(emps)
+      console.log(emps)
     } catch (error) {
-      console.error("Error fetching department:", error);
+      console.error('Error fetching department:', error)
     }
-  };
+  }
+
+  const deleteEmp = async (employeeId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/api/v1/Employee//EmployeeDelete/` + employeeId,
+        {
+          method: 'DELETE',
+          headers: {
+            'content-Type': 'application/json',
+          },
+        },
+      )
+      window.location.href = '/admin/Employeelist'
+      if (response.ok) {
+        toast.success('Deleted Successfully')
+      }
+    } catch (error) {
+      console.error('Error fetching department:', error)
+    }
+  }
 
   useEffect(() => {
-    fetchDeptId();
-  }, [DepartmentName]);
+    fetchDeptId()
+  }, [DepartmentName])
 
   return (
     <div className="flex">
@@ -72,18 +93,21 @@ const Emplist = () => {
       <div className="w-full p-20 rounded-[5px] bg-gray-100 m-[3%]">
         <div className="flex items-center pl-[3%] w-[100%] h-[45px] ">
           <b>
-            <h1>Department Name {":"} </h1>
+            <h1>Department Name {':'} </h1>
           </b>
           <select
             name="DepartmentName"
             onChange={(e) => {
-              SetDepartmentName(e.target.value);
+              SetDepartmentName(e.target.value)
             }}
             className="rounded-[5px] w-[80%]"
           >
             <option value="">Select Department</option>
             {Departments.map((dept, index) => (
-              <option value={dept.DepartmentName} key={index}>
+              <option
+                value={dept.DepartmentName}
+                key={index}
+              >
                 {dept.DepartmentName}
               </option>
             ))}
@@ -104,13 +128,13 @@ const Emplist = () => {
               <th className="border py-2 px-4">Gender </th>
               <th className="border py-2 px-4">Phone Number</th>
               <th className="border py-2 px-4">Email</th>
-              <th className="border py-2 px-4">Actions</th>{" "}
+              <th className="border py-2 px-4">Actions</th>{' '}
             </tr>
           </thead>
           <tbody>
             {employees.map((employee, index) => (
               <tr
-                className={index % 2 === 0 ? "bg-white" : "bg-gray-100"}
+                className={index % 2 === 0 ? 'bg-white' : 'bg-gray-100'}
                 key={index}
               >
                 <td className="border py-2 px-4">{index + 1}</td>
@@ -120,12 +144,17 @@ const Emplist = () => {
                 <td className="border py-2 px-4">{employee.Email}</td>
                 <td className="border py-2 px-4">
                   <Link
-                    to={"/ModifyEmp/" + employee._id}
+                    to={'/ModifyEmp/' + employee._id}
                     className="bg-blue-500 text-white px-4 py-2 mr-2 rounded-lg"
                   >
                     Modify
                   </Link>
-                  <button className="bg-red-500 text-white px-4 py-2 rounded-lg">
+                  <button
+                    onClick={() => {
+                      deleteEmp(employee._id)
+                    }}
+                    className="bg-red-500 text-white px-4 py-2 rounded-lg"
+                  >
                     Delete
                   </button>
                 </td>
@@ -135,16 +164,16 @@ const Emplist = () => {
         </table>
 
         <div className="flex text-center mt-[30px] items-center justify-end">
-          <button
-            type="submit"
+          <Link
+            to={"/admin/Employee"}
             className="text-white bg-blue-500 bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
           >
             Add Employee
-          </button>
+          </Link>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Emplist;
+export default Emplist

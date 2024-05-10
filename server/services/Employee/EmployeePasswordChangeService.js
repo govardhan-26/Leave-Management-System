@@ -42,7 +42,7 @@ const EmployeePasswordChangeService = async (Request, DataModel) => {
     }
 
     const verifyPassword = await VerifyPassword(PreviousPassword, employee.Password);
-
+    console.log(employee.Password);
     if (!verifyPassword) {
         throw CreateError("Previous Password does not match", 400);
     }
